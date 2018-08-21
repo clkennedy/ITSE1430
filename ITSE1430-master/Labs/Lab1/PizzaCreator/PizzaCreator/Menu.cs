@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace PizzaCreator
+{
+    class Menu
+    {
+        private List<MenuItem> _items;
+        private Order _order;
+        public Menu()
+        {
+            this._items = new List<MenuItem>();
+            this._order = null;
+        }
+
+        public void addMenuItem(MenuItem mi)
+        {
+            this._items.Add(mi);
+        }
+
+        public Boolean removeMenuItem(int index)
+        {
+            return false;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            int count = 0;
+
+            foreach(MenuItem item in this._items){
+                sb.Append(++count);
+                sb.Append(") ");
+                sb.Append(item);
+                sb.Append(Environment.NewLine);
+            }
+
+            if(this._order != null)
+            {
+                sb.Append(Environment.NewLine);
+                sb.Append("Cart: $");
+                sb.Append(Math.Round(this._order.Total, 2));
+                sb.Append(Environment.NewLine);
+            }
+            return sb.ToString();
+        }
+
+        public void start()
+        {
+            int input = 0;
+            do
+            {
+                Console.Write(this);
+                input = getValidInput();
+
+                this._items[input - 1].call();
+
+            } while (input < 5);
+        }
+
+        private int getValidInput()
+        {
+            Regex r = new Regex("^[1-4]");
+
+            string input = "";
+
+            do
+            {
+                Console.Write("Please Enter Between 1 and " + this._items.Count + ": ");
+                input = Console.ReadLine();
+
+                if (!r.IsMatch(input))
+                {
+                    Console.WriteLine("Not a Valid Input, Please Try again.");
+                }
+
+            } while (!r.IsMatch(input));
+            int convertedInt = Convert.ToInt32(input);
+
+            return convertedInt;
+        }
+
+
+        public void newOrder()
+        {
+            if(this._order != null)
+            {
+                Console.Write("Order Already Exist, Create a New One? (y/n): ");
+                Regex r = new Regex("^y|Y|Yes|YES");
+
+                String input = Console.ReadLine();
+
+                if (!r.IsMatch(input))
+                {
+                    return;
+                }
+            }
+            this._order = new Order();
+            //Console.WriteLine("New Order");
+        }
+        public void modifyOrder()
+        {
+            Console.WriteLine("Modify Order");
+        }
+        public void displayOrder()
+        {
+            Console.WriteLine("Display Order");
+        }
+
+    }
+}
