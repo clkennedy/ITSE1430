@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* Author: Cameron Kennedy
+ * Date: 8/22/2018
+ * Class: ITSE 1430 MW 5 -7:15
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,14 +16,14 @@ namespace PizzaCreator
     class MenuItem
     {
         private Action _callMethod;
-        private String _menuName;
+        private string _menuName;
 
         public MenuItem() {
             this._callMethod = null;
             this._menuName = "";
         }
 
-        public MenuItem(String name, Action method)
+        public MenuItem(string name, Action method)
         {
             this._callMethod = method;
             this._menuName = name;

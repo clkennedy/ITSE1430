@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Cameron Kennedy
+ * Date: 8/22/2018
+ * Class: ITSE 1430 MW 5 -7:15
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,11 +55,17 @@ namespace PizzaCreator
                 sb.Append("Pizza Sizes");
                 sb.Append(Environment.NewLine);
                 int count = 0;
+                PizzaSize oldSize = null;
+                if(this._oldOptions.Count > 0)
+                {
+                    oldSize = (PizzaSize)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSize));
+                }
                 foreach (PizzaOption size in PizzaOption.AllSizes)
                 {
                     sb.Append(++count);
                     sb.Append(") ");
                     sb.Append(size);
+                    sb.Append((oldSize != null && oldSize == size) ? " - previous option" : "");
                     sb.Append(Environment.NewLine);
                 }
 
@@ -117,6 +127,7 @@ namespace PizzaCreator
                     sb.Append(++count);
                     sb.Append(") ");
                     sb.Append(meat.Name);
+                    sb.Append((added[count - 1]) ? " (Remove)" : " (Add)");
                     sb.Append((added[count - 1]) ? " (Remove)" : " (Add)");
                     sb.Append(Environment.NewLine);
                 }
@@ -246,11 +257,17 @@ namespace PizzaCreator
                 sb.Append("Pizza Sauces.");
                 sb.Append(Environment.NewLine);
                 count = 0;
+                PizzaSauce oldSauce = null;
+                if (this._oldOptions.Count > 0)
+                {
+                    oldSauce = (PizzaSauce)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSauce));
+                }
                 foreach (PizzaOption sauce in PizzaOption.AllSauces)
                 {
                     sb.Append(++count);
                     sb.Append(") ");
                     sb.Append(sauce);
+                    sb.Append((oldSauce != null && oldSauce == sauce) ? " - previous option" : "");
                     sb.Append(Environment.NewLine);
                 }
 
@@ -287,11 +304,17 @@ namespace PizzaCreator
                 sb.Append("Pizza Cheeses.");
                 sb.Append(Environment.NewLine);
                 count = 0;
+                Cheese oldCheese = null;
+                if (this._oldOptions.Count > 0)
+                {
+                    oldCheese = (Cheese)this._oldOptions.Find(t => t.GetType() == typeof(Cheese));
+                }
                 foreach (PizzaOption cheese in PizzaOption.AllCheeses)
                 {
                     sb.Append(++count);
                     sb.Append(") ");
                     sb.Append(cheese);
+                    sb.Append((oldCheese != null && oldCheese == cheese) ? " - previous option" : "");
                     sb.Append(Environment.NewLine);
                 }
 
@@ -327,11 +350,17 @@ namespace PizzaCreator
                 sb.Append("Delivery Options.");
                 sb.Append(Environment.NewLine);
                 count = 0;
+                Delivery oldDelivery = null;
+                if (this._oldOptions.Count > 0)
+                {
+                    oldDelivery = (Delivery)this._oldOptions.Find(t => t.GetType() == typeof(Delivery));
+                }
                 foreach (PizzaOption delivery in PizzaOption.DeliveryOptions)
                 {
                     sb.Append(++count);
                     sb.Append(") ");
                     sb.Append(delivery);
+                    sb.Append((oldDelivery != null && oldDelivery == delivery) ? " - previous option" : "");
                     sb.Append(Environment.NewLine);
                 }
 
@@ -368,31 +397,31 @@ namespace PizzaCreator
 
             sb.Append(size.Name + " Pizza");
             sb.Append("\t");
-            sb.Append("$"+size.Cost.ToString("0.00"));
+            sb.Append("$"+size.Cost.ToString("0.00") + "\t");
             sb.Append(Environment.NewLine);
 
             sb.Append(delivery.Name);
             sb.Append("\t");
-            sb.Append("$" + delivery.Cost.ToString("0.00"));
+            sb.Append("$" + delivery.Cost.ToString("0.00") + "\t");
             sb.Append(Environment.NewLine);
 
-            sb.Append("Sauce");
+            sb.Append("Sauce\t\t\t");
             sb.Append(Environment.NewLine);
             sb.Append("   ");
             sb.Append(sauce.Name);
             sb.Append("\t");
-            sb.Append("$" + sauce.Cost.ToString("0.00"));
+            sb.Append("$" + sauce.Cost.ToString("0.00") + "\t");
             sb.Append(Environment.NewLine);
 
-            sb.Append("Cheese");
+            sb.Append("Cheese\t\t\t");
             sb.Append(Environment.NewLine);
             sb.Append("   ");
             sb.Append(cheese.Name);
             sb.Append("\t");
-            sb.Append("$" + cheese.Cost.ToString("0.00"));
+            sb.Append("$" + cheese.Cost.ToString("0.00") + "\t");
             sb.Append(Environment.NewLine);
 
-            sb.Append("Meats");
+            sb.Append("Meats\t\t\t");
             sb.Append(Environment.NewLine);
             foreach(PizzaOption option in meats)
             {
@@ -400,27 +429,27 @@ namespace PizzaCreator
                 sb.Append(option.Name);
                 if (option.Name.Length < 4) sb.Append("\t");
                 sb.Append("\t");
-                sb.Append("$" + option.Cost.ToString("0.00"));
+                sb.Append("$" + option.Cost.ToString("0.00") + "\t");
                 sb.Append(Environment.NewLine);
             }
 
-            sb.Append("Vegetables");
+            sb.Append("Vegetables\t\t");
             sb.Append(Environment.NewLine);
             foreach (PizzaOption option in veges)
             {
                 sb.Append("   ");
                 sb.Append(option.Name);
                 sb.Append("\t");
-                sb.Append("$" + option.Cost.ToString("0.00"));
+                sb.Append("$" + option.Cost.ToString("0.00") + "\t");
                 sb.Append(Environment.NewLine);
             }
 
-            sb.Append("-------------------------");
+            sb.Append("------------------------");
             sb.Append(Environment.NewLine);
             
             sb.Append("Total");
             sb.Append("\t\t");
-            sb.Append("$" + this._total.ToString("0.00"));
+            sb.Append("$" + this._total.ToString("0.00") + "\t");
             sb.Append(Environment.NewLine);
 
             return sb.ToString();
@@ -437,6 +466,7 @@ namespace PizzaCreator
             setPizzaSauce();
             setPizzaCheese();
             setDelivery();
+
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
 
