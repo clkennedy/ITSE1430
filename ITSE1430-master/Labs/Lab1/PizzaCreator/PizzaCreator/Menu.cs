@@ -31,8 +31,10 @@ namespace PizzaCreator
         {
             StringBuilder sb = new StringBuilder();
             int count = 0;
-
-            foreach(MenuItem item in this._items){
+            sb.Append(Environment.NewLine);
+            sb.Append("Main Menu");
+            sb.Append(Environment.NewLine);
+            foreach (MenuItem item in this._items){
                 sb.Append(++count);
                 sb.Append(") ");
                 sb.Append(item);
@@ -104,11 +106,27 @@ namespace PizzaCreator
         }
         public void modifyOrder()
         {
-            Console.WriteLine("Modify Order");
+            if(this._order != null)
+            {
+                this._order.modify();
+            }
+            else
+            {
+                Console.WriteLine("No Order Exist to Modify");
+            }
+            
         }
         public void displayOrder()
         {
-            Console.WriteLine("Display Order");
+            if(this._order != null)
+            {
+                Console.Write(this._order);
+            }
+            else
+            {
+                Console.WriteLine("No Order Exist to Display");
+            }
+            
         }
 
     }

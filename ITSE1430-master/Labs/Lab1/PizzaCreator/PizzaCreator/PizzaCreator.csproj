@@ -42,11 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cheese.cs" />
+    <Compile Include="Delivery.cs" />
     <Compile Include="Meat.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="PizzaOptions.cs" />
+    <Compile Include="PizzaSauce.cs" />
     <Compile Include="PizzaSize.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
