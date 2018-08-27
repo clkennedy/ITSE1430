@@ -42,7 +42,6 @@ namespace PizzaCreator
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-
         private void setPizzaSize()
         {
             StringBuilder sb;
