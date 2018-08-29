@@ -29,30 +29,26 @@ namespace PizzaCreator
         
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
             int count = 0;
-            sb.Append(Environment.NewLine);
-            sb.Append("Main Menu");
-            sb.Append(Environment.NewLine);
+            
+            Console.WriteLine("Main Menu");
+            Console.WriteLine();
             foreach (MenuItem item in this._items){
-                sb.Append(++count);
-                sb.Append(") ");
-                sb.Append(item);
-                sb.Append(Environment.NewLine);
+                Console.WriteLine($"{++count}) {item}");
             }
 
-            //if(this._order != null)
-            //{
-            //    sb.Append(Environment.NewLine);
-            //    Console.BackgroundColor = ConsoleColor.White;
-            //    Console.ForegroundColor = ConsoleColor.Black;
-            //    sb.Append("Cart: $");
-            //    sb.Append(Math.Round(this._order.Total, 2).ToString("0.00"));
-            //    Console.BackgroundColor = ConsoleColor.Black;
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    sb.Append(Environment.NewLine);
-            //}
-            return sb.ToString();
+            if (this._order != null)
+            {
+                Console.WriteLine();
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("Cart: $");
+                Console.Write(Math.Round(this._order.Total, 2).ToString("0.00"));
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+            }
+            return "";
         }
 
         public void start()
@@ -60,19 +56,9 @@ namespace PizzaCreator
             int input = 0;
             do
             {
+                Console.Clear();
                 Console.Write(this);
 
-                if (this._order != null)
-                {
-                    Console.WriteLine();
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write("Cart: $");
-                    Console.Write(Math.Round(this._order.Total, 2).ToString("0.00"));
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine();
-                }
                 input = getValidInput();
 
                 this._items[input - 1].call();
@@ -89,7 +75,8 @@ namespace PizzaCreator
             do
             {
                 Console.Write("Please Enter Between 1 and " + this._items.Count + ": ");
-                input = Console.ReadLine();
+                input = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine();
 
                 if (!r.IsMatch(input))
                 {
@@ -105,7 +92,8 @@ namespace PizzaCreator
 
         public void newOrder()
         {
-            if(this._order != null)
+            Console.Clear();
+            if (this._order != null)
             {
                 Console.Write("Order Already Exist, Create a New One? (y/n): ");
                 Regex r = new Regex("^y|Y|Yes|YES");

@@ -26,54 +26,42 @@ namespace PizzaCreator
         {
             _options = new List<PizzaOption>();
             _oldOptions = new List<PizzaOption>();
-            setPizzaSize();
-            setPizzaMeats();
-            setPizzaVeges();
-            setPizzaSauce();
-            setPizzaCheese();
-            setDelivery();
-
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
-
+            SetPizzaSize();
+            SetPizzaMeats();
+            SetPizzaVeges();
+            SetPizzaSauce();
+            SetPizzaCheese();
+            SetDelivery();
+            
             Console.Write(this);
-
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
         }
-
-        private void setPizzaSize()
+        
+        private void SetPizzaSize()
         {
-            StringBuilder sb;
+            Console.Clear();
             string input = "";
             Regex r = new Regex("^[1-" + PizzaOption.AllSizes.Count + "]$");
+
+            Console.WriteLine();
+            Console.WriteLine("Pizza Sizes.");
+            int count = 0;
+            PizzaSize oldSize = null;
+
+            if (this._oldOptions.Count > 0)
+            {
+                oldSize = (PizzaSize)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSize));
+            }
+            foreach (PizzaOption size in PizzaOption.AllSizes)
+            {
+                Console.WriteLine($"{++count}) {size} {((oldSize != null && oldSize == size) ? " - previous option" : "")}");
+            }
+
             do
             {
-                sb = new StringBuilder();
-                sb.Append(Environment.NewLine);
-                sb.Append("Pizza Sizes");
-                sb.Append(Environment.NewLine);
-                int count = 0;
-                PizzaSize oldSize = null;
-                if(this._oldOptions.Count > 0)
-                {
-                    oldSize = (PizzaSize)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSize));
-                }
-                foreach (PizzaOption size in PizzaOption.AllSizes)
-                {
-                    sb.Append(++count);
-                    sb.Append(") ");
-                    sb.Append(size);
-                    sb.Append((oldSize != null && oldSize == size) ? " - previous option" : "");
-                    sb.Append(Environment.NewLine);
-                }
+                Console.Write("Please Select One (required): ");
 
-                sb.Append("Please Select One (required): ");
-
-                Console.Write(sb);
-
-                input = Console.ReadLine();
-                
+                input = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine();
                 if (!r.IsMatch(input))
                 {
                     Console.WriteLine("Invalid Selection, Please Try Again");
@@ -87,9 +75,8 @@ namespace PizzaCreator
             this._total += PizzaOption.AllSizes[index - 1].Cost;
         }
 
-        private void setPizzaMeats()
+        private void SetPizzaMeats()
         {
-            StringBuilder sb;
             string input = "";
             Regex r = new Regex("^[1-" + (PizzaOption.AllMeats.Count + 1) + "]$");
             bool[] added = new bool[PizzaOption.AllMeats.Count];
@@ -116,43 +103,34 @@ namespace PizzaCreator
             int index;
             do
             {
-                sb = new StringBuilder();
-                sb.Append(Environment.NewLine);
-                sb.Append("Pizza Meats. Add .75 per meat added.");
-                sb.Append(Environment.NewLine);
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine("Pizza Meats. Add .75 per meat added.");
                 count = 0;
                 foreach (PizzaOption meat in PizzaOption.AllMeats)
                 {
-                    sb.Append(++count);
-                    sb.Append(") ");
-                    sb.Append(meat.Name);
-                    sb.Append((added[count - 1]) ? " (Remove)" : " (Add)");
-                    sb.Append((added[count - 1]) ? " (Remove)" : " (Add)");
-                    sb.Append(Environment.NewLine);
+                    Console.WriteLine($"{++count}) {meat.Name} {((added[count - 1]) ? " (Remove)" : "(Add)")}");
                 }
+                
+                Console.WriteLine($"{++count}) Finish");
 
-                sb.Append(++count);
-                sb.Append(") ");
-                sb.Append("Finish");
-                sb.Append(Environment.NewLine);
-
-                sb.Append("Please Select One an Option: ");
-
-                Console.Write(sb);
-
-                input = Console.ReadLine();
-
-                if (!r.IsMatch(input))
+                do
                 {
-                    Console.WriteLine("Invalid Selection, Please Try Again");
-                }
-                else
-                {
-                    index = Convert.ToInt32(input);
-                    if (index != count)
+                    Console.Write("Please Select an Option: ");
+
+                    input = Console.ReadKey().KeyChar.ToString();
+                    Console.WriteLine();
+
+                    if (!r.IsMatch(input))
                     {
-                        added[index - 1] = !added[index - 1];
+                        Console.WriteLine("Invalid Selection, Please Try Again");
                     }
+                } while (!r.IsMatch(input));
+
+                index = Convert.ToInt32(input);
+                if (index != count)
+                {
+                    added[index - 1] = !added[index - 1];
                 }
             } while (!r.IsMatch(input) || Convert.ToInt32(input) != count);
             
@@ -166,9 +144,8 @@ namespace PizzaCreator
             }
         }
 
-        private void setPizzaVeges()
+        private void SetPizzaVeges()
         {
-            StringBuilder sb;
             string input = "";
             Regex r = new Regex("^[1-" + (PizzaOption.AllVeges.Count + 1) + "]$");
             bool[] added = new bool[PizzaOption.AllVeges.Count];
@@ -193,43 +170,35 @@ namespace PizzaCreator
             int index;
             do
             {
-                sb = new StringBuilder();
-                sb.Append(Environment.NewLine);
-                sb.Append("Pizza Vegetables. Add .50 cents per Vegetable added.");
-                sb.Append(Environment.NewLine);
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine("Pizza Vegetables. Add .50 cents per Vegetable added.");
                 count = 0;
                 foreach (PizzaOption vege in PizzaOption.AllVeges)
                 {
-                    sb.Append(++count);
-                    sb.Append(") ");
-                    sb.Append(vege.Name);
-                    sb.Append((added[count - 1]) ? " (Remove)" : " (Add)");
-                    sb.Append(Environment.NewLine);
+                    Console.WriteLine($"{++count}) {vege.Name} {((added[count - 1]) ? " (Remove)" : "(Add)")}");
                 }
 
-                sb.Append(++count);
-                sb.Append(") ");
-                sb.Append("Finish");
-                sb.Append(Environment.NewLine);
-
-                sb.Append("Please Select an Option: ");
-
-                Console.Write(sb);
-
-                input = Console.ReadLine();
-
-                if (!r.IsMatch(input))
+                Console.WriteLine($"{++count}) Finish");
+                do
                 {
-                    Console.WriteLine("Invalid Selection, Please Try Again");
-                }
-                else
-                {
-                    index = Convert.ToInt32(input);
-                    if (index != count)
+                    Console.Write("Please Select an Option: ");
+
+                    input = Console.ReadKey().KeyChar.ToString();
+                    Console.WriteLine();
+
+                    if (!r.IsMatch(input))
                     {
-                        added[index - 1] = !added[index - 1];
+                        Console.WriteLine("Invalid Selection, Please Try Again");
                     }
+                } while (!r.IsMatch(input));
+                
+                index = Convert.ToInt32(input);
+                if (index != count)
+                {
+                    added[index - 1] = !added[index - 1];
                 }
+                
             } while (!r.IsMatch(input) || Convert.ToInt32(input) != count);
 
             for (int i = 0; i < added.Length; i++)
@@ -242,39 +211,34 @@ namespace PizzaCreator
             }
         }
 
-        private void setPizzaSauce()
+        private void SetPizzaSauce()
         {
-            StringBuilder sb;
+            Console.Clear();
             string input = "";
             Regex r = new Regex("^[1-" + (PizzaOption.AllSauces.Count) + "]$");
             bool[] added = new bool[PizzaOption.AllSauces.Count];
             int count = 0;
+
+            Console.WriteLine();
+            Console.WriteLine("Pizza Sauces.");
+            count = 0;
+            PizzaSauce oldSauce = null;
+
+            if (this._oldOptions.Count > 0)
+            {
+                oldSauce = (PizzaSauce)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSauce));
+            }
+            foreach (PizzaOption sauce in PizzaOption.AllSauces)
+            {
+                Console.WriteLine($"{++count}) {sauce} {((oldSauce != null && oldSauce == sauce) ? " - previous option" : "")}");
+            }
+
             do
             {
-                sb = new StringBuilder();
-                sb.Append(Environment.NewLine);
-                sb.Append("Pizza Sauces.");
-                sb.Append(Environment.NewLine);
-                count = 0;
-                PizzaSauce oldSauce = null;
-                if (this._oldOptions.Count > 0)
-                {
-                    oldSauce = (PizzaSauce)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSauce));
-                }
-                foreach (PizzaOption sauce in PizzaOption.AllSauces)
-                {
-                    sb.Append(++count);
-                    sb.Append(") ");
-                    sb.Append(sauce);
-                    sb.Append((oldSauce != null && oldSauce == sauce) ? " - previous option" : "");
-                    sb.Append(Environment.NewLine);
-                }
+                Console.Write("Please Select One (required): ");
 
-                sb.Append("Please Select an Option: ");
-
-                Console.Write(sb);
-
-                input = Console.ReadLine();
+                input = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine();
 
                 if (!r.IsMatch(input))
                 {
@@ -289,39 +253,34 @@ namespace PizzaCreator
             this._total += PizzaOption.AllSauces[index - 1].Cost;
         }
 
-        private void setPizzaCheese()
+        private void SetPizzaCheese()
         {
-            StringBuilder sb;
+            Console.Clear();
             string input = "";
             Regex r = new Regex("^[1-" + (PizzaOption.AllCheeses.Count) + "]$");
             bool[] added = new bool[PizzaOption.AllCheeses.Count];
             int count = 0;
+            
+            Console.WriteLine();
+            Console.WriteLine("Pizza Cheeses.");
+            count = 0;
+            Cheese oldCheese = null;
+
+            if (this._oldOptions.Count > 0)
+            {
+                oldCheese = (Cheese)this._oldOptions.Find(t => t.GetType() == typeof(Cheese));
+            }
+            foreach (PizzaOption cheese in PizzaOption.AllCheeses)
+            {
+                Console.WriteLine($"{++count}) {cheese} {((oldCheese != null && oldCheese == cheese) ? " - previous option" : "")}");
+            }
+
             do
             {
-                sb = new StringBuilder();
-                sb.Append(Environment.NewLine);
-                sb.Append("Pizza Cheeses.");
-                sb.Append(Environment.NewLine);
-                count = 0;
-                Cheese oldCheese = null;
-                if (this._oldOptions.Count > 0)
-                {
-                    oldCheese = (Cheese)this._oldOptions.Find(t => t.GetType() == typeof(Cheese));
-                }
-                foreach (PizzaOption cheese in PizzaOption.AllCheeses)
-                {
-                    sb.Append(++count);
-                    sb.Append(") ");
-                    sb.Append(cheese);
-                    sb.Append((oldCheese != null && oldCheese == cheese) ? " - previous option" : "");
-                    sb.Append(Environment.NewLine);
-                }
+                Console.Write("Please Select One (required): ");
 
-                sb.Append("Please Select an Option: ");
-
-                Console.Write(sb);
-
-                input = Console.ReadLine();
+                input = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine();
 
                 if (!r.IsMatch(input))
                 {
@@ -335,39 +294,34 @@ namespace PizzaCreator
             this._options.Add(PizzaOption.AllCheeses[index - 1]);
             this._total += PizzaOption.AllCheeses[index - 1].Cost;
         }
-        private void setDelivery()
+        private void SetDelivery()
         {
-            StringBuilder sb;
+            Console.Clear();
             string input = "";
             Regex r = new Regex("^[1-" + (PizzaOption.DeliveryOptions.Count) + "]$");
             bool[] added = new bool[PizzaOption.DeliveryOptions.Count];
             int count = 0;
+
+            Console.WriteLine();
+            Console.WriteLine("Delivery Options.");
+            count = 0;
+            Delivery oldDelivery = null;
+
+            if (this._oldOptions.Count > 0)
+            {
+                oldDelivery = (Delivery)this._oldOptions.Find(t => t.GetType() == typeof(Delivery));
+            }
+            foreach (PizzaOption delivery in PizzaOption.DeliveryOptions)
+            {
+                Console.WriteLine($"{++count}) {delivery} {((oldDelivery != null && oldDelivery == delivery) ? " - previous option" : "")}");
+            }
+
             do
             {
-                sb = new StringBuilder();
-                sb.Append(Environment.NewLine);
-                sb.Append("Delivery Options.");
-                sb.Append(Environment.NewLine);
-                count = 0;
-                Delivery oldDelivery = null;
-                if (this._oldOptions.Count > 0)
-                {
-                    oldDelivery = (Delivery)this._oldOptions.Find(t => t.GetType() == typeof(Delivery));
-                }
-                foreach (PizzaOption delivery in PizzaOption.DeliveryOptions)
-                {
-                    sb.Append(++count);
-                    sb.Append(") ");
-                    sb.Append(delivery);
-                    sb.Append((oldDelivery != null && oldDelivery == delivery) ? " - previous option" : "");
-                    sb.Append(Environment.NewLine);
-                }
+                Console.Write("Please Select One (required): ");
 
-                sb.Append("Please Select an Option: ");
-
-                Console.Write(sb);
-
-                input = Console.ReadLine();
+                input = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine();
 
                 if (!r.IsMatch(input))
                 {
@@ -384,7 +338,6 @@ namespace PizzaCreator
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
             PizzaSize size = (PizzaSize)this._options.Find(t => t.GetType() == typeof(PizzaSize));
             Delivery delivery = (Delivery)this._options.Find(t => t.GetType() == typeof(Delivery));
             PizzaSauce sauce = (PizzaSauce)this._options.Find(t => t.GetType() == typeof(PizzaSauce));
@@ -392,66 +345,50 @@ namespace PizzaCreator
             List<PizzaOption> meats = this._options.FindAll(t => t.GetType() == typeof(Meat));
             List<PizzaOption> veges = this._options.FindAll(t => t.GetType() == typeof(Vegetable));
 
-            sb.Append(Environment.NewLine);
+            Console.Clear();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
 
-            sb.Append(size.Name + " Pizza");
-            sb.Append("\t");
-            sb.Append("$"+size.Cost.ToString("0.00") + "\t");
-            sb.Append(Environment.NewLine);
+            Console.WriteLine();
+            
+            Console.WriteLine($"{size.Name} Pizza\t${size.Cost.ToString("0.00")}\t");
+            
+            Console.WriteLine($"{delivery.Name}\t${delivery.Cost.ToString("0.00")}\t");
+            
+            Console.WriteLine($"Sauce\t\t\t");
+            Console.WriteLine($"   {sauce.Name}\t${sauce.Cost.ToString("0.00")}\t");
+            
+            Console.WriteLine($"Cheese\t\t\t");
+            Console.WriteLine($"   {cheese.Name}\t${cheese.Cost.ToString("0.00")}\t");
 
-            sb.Append(delivery.Name);
-            sb.Append("\t");
-            sb.Append("$" + delivery.Cost.ToString("0.00") + "\t");
-            sb.Append(Environment.NewLine);
-
-            sb.Append("Sauce\t\t\t");
-            sb.Append(Environment.NewLine);
-            sb.Append("   ");
-            sb.Append(sauce.Name);
-            sb.Append("\t");
-            sb.Append("$" + sauce.Cost.ToString("0.00") + "\t");
-            sb.Append(Environment.NewLine);
-
-            sb.Append("Cheese\t\t\t");
-            sb.Append(Environment.NewLine);
-            sb.Append("   ");
-            sb.Append(cheese.Name);
-            sb.Append("\t");
-            sb.Append("$" + cheese.Cost.ToString("0.00") + "\t");
-            sb.Append(Environment.NewLine);
-
-            sb.Append("Meats\t\t\t");
-            sb.Append(Environment.NewLine);
-            foreach(PizzaOption option in meats)
+            Console.WriteLine($"Meats\t\t\t");
+            foreach (PizzaOption option in meats)
             {
-                sb.Append("   ");
-                sb.Append(option.Name);
-                if (option.Name.Length < 4) sb.Append("\t");
-                sb.Append("\t");
-                sb.Append("$" + option.Cost.ToString("0.00") + "\t");
-                sb.Append(Environment.NewLine);
+                if (option.Name.Length < 4)
+                {
+                    Console.WriteLine($"   {option.Name}\t\t${option.Cost.ToString("0.00")}\t");
+                } else
+                {
+                    Console.WriteLine($"   {option.Name}\t${option.Cost.ToString("0.00")}\t");
+                }
             }
-
-            sb.Append("Vegetables\t\t");
-            sb.Append(Environment.NewLine);
+            
+            Console.WriteLine($"Vegetables\t\t");
             foreach (PizzaOption option in veges)
             {
-                sb.Append("   ");
-                sb.Append(option.Name);
-                sb.Append("\t");
-                sb.Append("$" + option.Cost.ToString("0.00") + "\t");
-                sb.Append(Environment.NewLine);
+                Console.WriteLine($"   {option.Name}\t${option.Cost.ToString("0.00")}\t");
             }
 
-            sb.Append("------------------------");
-            sb.Append(Environment.NewLine);
-            
-            sb.Append("Total");
-            sb.Append("\t\t");
-            sb.Append("$" + this._total.ToString("0.00") + "\t");
-            sb.Append(Environment.NewLine);
+            Console.WriteLine($"------------------------");
+            Console.WriteLine($"Total\t\t${this._total.ToString("0.00")}\t");
 
-            return sb.ToString();
+            Console.ResetColor();
+
+            Console.WriteLine();
+            Console.Write("Press any key to continue..");
+            Console.ReadKey();
+
+            return "";
         }
 
         public void modify()
@@ -459,20 +396,15 @@ namespace PizzaCreator
             this._oldOptions = this._options;
             this._options = new List<PizzaOption>();
             this._total = 0.00;
-            setPizzaSize();
-            setPizzaMeats();
-            setPizzaVeges();
-            setPizzaSauce();
-            setPizzaCheese();
-            setDelivery();
 
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
+            SetPizzaSize();
+            SetPizzaMeats();
+            SetPizzaVeges();
+            SetPizzaSauce();
+            SetPizzaCheese();
+            SetDelivery();
 
             Console.Write(this);
-
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
