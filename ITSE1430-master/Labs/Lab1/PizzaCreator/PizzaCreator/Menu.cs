@@ -96,9 +96,9 @@ namespace PizzaCreator
             if (this._order != null)
             {
                 Console.Write("Order Already Exist, Create a New One? (y/n): ");
-                Regex r = new Regex("^y|Y|Yes|YES");
+                Regex r = new Regex("^y|Y");
 
-                string input = Console.ReadLine();
+                string input = Console.ReadKey().KeyChar.ToString();
 
                 if (!r.IsMatch(input))
                 {
