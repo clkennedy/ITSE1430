@@ -12,31 +12,31 @@ namespace PizzaCreator
 {
     class PizzaOption
     {
-        public static List<PizzaSize> AllSizes = new List<PizzaSize>(){
+        public static List<PizzaOption> AllSizes = new List<PizzaOption>(){
                                                         new PizzaSize("Small", 5),
                                                         new PizzaSize("Medium", 6.25),
                                                         new PizzaSize("Large", 8.75)};
 
-        public static List<Meat> AllMeats = new List<Meat>(){ new Meat("Bacon", .75),
+        public static List<PizzaOption> AllMeats = new List<PizzaOption>(){ new Meat("Bacon", .75),
                                                         new Meat("Ham", .75),
                                                         new Meat("Papperoni", .75),
                                                         new Meat("Sausage", .75)};
-        public static List<Vegetable> AllVeges = new List<Vegetable>(){
+        public static List<PizzaOption> AllVeges = new List<PizzaOption>(){
                                                         new Vegetable("Balck Olives", .50),
                                                         new Vegetable("Mushrooms", .50),
                                                         new Vegetable("Onions", .50),
                                                         new Vegetable("Peppers", .50)};
 
-        public static List<PizzaSauce> AllSauces = new List<PizzaSauce>(){
+        public static List<PizzaOption> AllSauces = new List<PizzaOption>(){
                                                         new PizzaSauce("Traditional", 0),
                                                         new PizzaSauce("Garlic", 1),
                                                         new PizzaSauce("Oregano", 1) };
 
-        public static List<Cheese> AllCheeses = new List<Cheese>(){
+        public static List<PizzaOption> AllCheeses = new List<PizzaOption>(){
                                                         new Cheese("Regular", 0),
                                                         new Cheese("Extra", 1.25) };
 
-        public static List<Delivery> DeliveryOptions = new List<Delivery>(){
+        public static List<PizzaOption> DeliveryOptions = new List<PizzaOption>(){
                                                         new Delivery("Take Out", 0),
                                                         new Delivery("Delivery", 2.50) };
 
