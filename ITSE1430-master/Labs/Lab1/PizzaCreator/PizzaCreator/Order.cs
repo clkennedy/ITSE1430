@@ -243,14 +243,11 @@ namespace PizzaCreator
         private void SetPizzaCheese()
         {
             Console.Clear();
-            string input = "";
             Regex r = new Regex("^[1-" + (PizzaOption.AllCheeses.Count) + "]$");
             bool[] added = new bool[PizzaOption.AllCheeses.Count];
-            int count = 0;
             
             Console.WriteLine();
             Console.WriteLine("Pizza Cheeses.");
-            count = 0;
             Cheese oldCheese = null;
 
             if (this._oldOptions.Count > 0)
@@ -263,6 +260,7 @@ namespace PizzaCreator
             this._options.Add(chosen);
             this._total += chosen.Cost;
         }
+
         private void SetDelivery()
         {
             Console.Clear();
