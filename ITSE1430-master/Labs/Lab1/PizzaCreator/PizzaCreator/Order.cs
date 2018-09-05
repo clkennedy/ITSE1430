@@ -25,15 +25,7 @@ namespace PizzaCreator
         public Order()
         {
             _options = new List<PizzaOption>();
-            _oldOptions = new List<PizzaOption>();
-            SetPizzaSize();
-            SetPizzaMeats();
-            SetPizzaVeges();
-            SetPizzaSauce();
-            SetPizzaCheese();
-            SetDelivery();
-            
-            Console.Write(this);
+            modify();
         }
         
         private void SetPizzaSize()
@@ -336,7 +328,7 @@ namespace PizzaCreator
             this._total += PizzaOption.DeliveryOptions[index - 1].Cost;
         }
 
-        public override string ToString()
+        public void Display()
         {
             PizzaSize size = (PizzaSize)this._options.Find(t => t.GetType() == typeof(PizzaSize));
             Delivery delivery = (Delivery)this._options.Find(t => t.GetType() == typeof(Delivery));
@@ -387,8 +379,7 @@ namespace PizzaCreator
             Console.WriteLine();
             Console.Write("Press any key to continue..");
             Console.ReadKey();
-
-            return "";
+            
         }
 
         public void modify()
@@ -404,7 +395,7 @@ namespace PizzaCreator
             SetPizzaCheese();
             SetDelivery();
 
-            Console.Write(this);
+            this.Display();
         }
     }
 }

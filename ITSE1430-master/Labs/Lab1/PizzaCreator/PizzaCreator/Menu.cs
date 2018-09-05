@@ -27,7 +27,7 @@ namespace PizzaCreator
             this._items.Add(mi);
         }
         
-        public override string ToString()
+        public void Display()
         {
             int count = 0;
             
@@ -48,7 +48,6 @@ namespace PizzaCreator
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
             }
-            return "";
         }
 
         public void start()
@@ -57,7 +56,7 @@ namespace PizzaCreator
             do
             {
                 Console.Clear();
-                Console.Write(this);
+                this.Display();
 
                 input = getValidInput();
 
@@ -124,7 +123,7 @@ namespace PizzaCreator
         {
             if(this._order != null)
             {
-                Console.Write(this._order);
+                this._order.Display();
             }
             else
             {
