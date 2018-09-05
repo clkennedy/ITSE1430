@@ -58,7 +58,62 @@ namespace PizzaCreator
 
             chosenOption = options[index - 1];
 
+            this._options.Add(chosenOption);
+            this._total += chosenOption.Cost;
+
             return chosenOption;
+        }
+
+        public bool[] ChooseOption(bool[] added, List<PizzaOption> options, string title )
+        {
+            Regex r = new Regex("^[1-" + (options.Count + 1) + "]$");
+            int index;
+            string input = "";
+            int count = 0;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine(title);
+                count = 0;
+
+                foreach (PizzaOption meat in PizzaOption.AllMeats)
+                {
+                    Console.WriteLine($"{++count}) {meat.Name} {((added[count - 1]) ? " (Remove)" : "(Add)")}");
+                }
+
+                Console.WriteLine($"{++count}) Finish");
+
+                do
+                {
+                    Console.Write("Please Select an Option: ");
+
+                    input = Console.ReadKey().KeyChar.ToString();
+                    Console.WriteLine();
+
+                    if (!r.IsMatch(input))
+                    {
+                        Console.WriteLine("Invalid Selection, Please Try Again");
+                    }
+                } while (!r.IsMatch(input));
+
+                index = Convert.ToInt32(input);
+                if (index != count)
+                {
+                    added[index - 1] = !added[index - 1];
+                }
+            } while (!r.IsMatch(input) || Convert.ToInt32(input) != count);
+
+            for (int i = 0; i < added.Length; i++)
+            {
+                if (added[i])
+                {
+                    this._options.Add(options[i]);
+                    this._total += options[i].Cost;
+                }
+            }
+
+            return added;
         }
 
         private void SetPizzaSize()
@@ -76,18 +131,14 @@ namespace PizzaCreator
                 oldSize = (PizzaSize)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSize));
             }
 
-            PizzaOption chosen = ChooseOption(oldSize, PizzaOption.AllSizes);
-
-            this._options.Add(chosen);
-            this._total += chosen.Cost;
+            ChooseOption(oldSize, PizzaOption.AllSizes);
         }
 
         private void SetPizzaMeats()
         {
-            string input = "";
-            Regex r = new Regex("^[1-" + (PizzaOption.AllMeats.Count + 1) + "]$");
+            
             bool[] added = new bool[PizzaOption.AllMeats.Count];
-            int count = 0;
+            
 
             if(this._options.Count > 0)
             {
@@ -107,56 +158,14 @@ namespace PizzaCreator
                 }
             }
 
-            int index;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine("Pizza Meats. Add .75 per meat added.");
-                count = 0;
-                foreach (PizzaOption meat in PizzaOption.AllMeats)
-                {
-                    Console.WriteLine($"{++count}) {meat.Name} {((added[count - 1]) ? " (Remove)" : "(Add)")}");
-                }
-                
-                Console.WriteLine($"{++count}) Finish");
-
-                do
-                {
-                    Console.Write("Please Select an Option: ");
-
-                    input = Console.ReadKey().KeyChar.ToString();
-                    Console.WriteLine();
-
-                    if (!r.IsMatch(input))
-                    {
-                        Console.WriteLine("Invalid Selection, Please Try Again");
-                    }
-                } while (!r.IsMatch(input));
-
-                index = Convert.ToInt32(input);
-                if (index != count)
-                {
-                    added[index - 1] = !added[index - 1];
-                }
-            } while (!r.IsMatch(input) || Convert.ToInt32(input) != count);
-            
-            for(int i = 0; i < added.Length; i++)
-            {
-                if (added[i])
-                {
-                    this._options.Add(PizzaOption.AllMeats[i]);
-                    this._total += PizzaOption.AllMeats[i].Cost;
-                }
-            }
+            ChooseOption(added, PizzaOption.AllMeats, "Pizza Meats. Add .75 per meat added.");
         }
 
         private void SetPizzaVeges()
         {
-            string input = "";
             Regex r = new Regex("^[1-" + (PizzaOption.AllVeges.Count + 1) + "]$");
             bool[] added = new bool[PizzaOption.AllVeges.Count];
-            int count = 0;
+
             if (this._options.Count > 0)
             {
                 foreach (PizzaOption option in this._oldOptions)
@@ -174,48 +183,8 @@ namespace PizzaCreator
 
                 }
             }
-            int index;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine("Pizza Vegetables. Add .50 cents per Vegetable added.");
-                count = 0;
-                foreach (PizzaOption vege in PizzaOption.AllVeges)
-                {
-                    Console.WriteLine($"{++count}) {vege.Name} {((added[count - 1]) ? " (Remove)" : "(Add)")}");
-                }
 
-                Console.WriteLine($"{++count}) Finish");
-                do
-                {
-                    Console.Write("Please Select an Option: ");
-
-                    input = Console.ReadKey().KeyChar.ToString();
-                    Console.WriteLine();
-
-                    if (!r.IsMatch(input))
-                    {
-                        Console.WriteLine("Invalid Selection, Please Try Again");
-                    }
-                } while (!r.IsMatch(input));
-                
-                index = Convert.ToInt32(input);
-                if (index != count)
-                {
-                    added[index - 1] = !added[index - 1];
-                }
-                
-            } while (!r.IsMatch(input) || Convert.ToInt32(input) != count);
-
-            for (int i = 0; i < added.Length; i++)
-            {
-                if (added[i])
-                {
-                    this._options.Add(PizzaOption.AllVeges[i]);
-                    this._total += PizzaOption.AllVeges[i].Cost;
-                }
-            }
+            ChooseOption(added, PizzaOption.AllVeges, "Pizza Vegetables. Add .50 cents per Vegetable added.");
         }
 
         private void SetPizzaSauce()
@@ -234,10 +203,7 @@ namespace PizzaCreator
                 oldSauce = (PizzaSauce)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSauce));
             }
 
-            PizzaOption chosen = ChooseOption(oldSauce, PizzaOption.AllSauces);
-
-            this._options.Add(chosen);
-            this._total += chosen.Cost;
+            ChooseOption(oldSauce, PizzaOption.AllSauces);
         }
 
         private void SetPizzaCheese()
@@ -255,10 +221,8 @@ namespace PizzaCreator
                 oldCheese = (Cheese)this._oldOptions.Find(t => t.GetType() == typeof(Cheese));
             }
 
-            PizzaOption chosen = ChooseOption(oldCheese, PizzaOption.AllCheeses);
-
-            this._options.Add(chosen);
-            this._total += chosen.Cost;
+            ChooseOption(oldCheese, PizzaOption.AllCheeses);
+            
         }
 
         private void SetDelivery()
@@ -277,10 +241,7 @@ namespace PizzaCreator
                 oldDelivery = (Delivery)this._oldOptions.Find(t => t.GetType() == typeof(Delivery));
             }
 
-            PizzaOption chosen = ChooseOption(oldDelivery, PizzaOption.DeliveryOptions);
-
-            this._options.Add(chosen);
-            this._total += chosen.Cost;
+            ChooseOption(oldDelivery, PizzaOption.DeliveryOptions);
         }
 
         public void Display()
