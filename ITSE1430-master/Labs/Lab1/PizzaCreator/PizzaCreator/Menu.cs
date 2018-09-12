@@ -36,18 +36,16 @@ namespace PizzaCreator
             foreach (MenuItem item in this._items){
                 Console.WriteLine($"{++count}) {item}");
             }
-
-            if (this._order != null)
-            {
-                Console.WriteLine();
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.Write("Cart: $");
-                Console.Write(Math.Round(this._order.Total, 2).ToString("0.00"));
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
-            }
+            
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("Cart: $");
+            Console.Write((this._order != null) ? Math.Round(this._order.Total, 2).ToString("0.00") : "0.00");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            
         }
 
         public void start()

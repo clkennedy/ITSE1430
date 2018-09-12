@@ -124,11 +124,11 @@ namespace PizzaCreator
             Console.WriteLine();
             Console.WriteLine("Pizza Sizes.");
             //int count = 0;
-            PizzaSize oldSize = null;
+            PizzaOption oldSize = null;
 
             if (this._oldOptions.Count > 0)
             {
-                oldSize = (PizzaSize)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSize));
+                oldSize = this._oldOptions.Find(t => t.Type == PizzaOption.PizzaType.SIZE);
             }
 
             ChooseOption(oldSize, PizzaOption.AllSizes);
@@ -144,11 +144,11 @@ namespace PizzaCreator
             {
                 foreach(PizzaOption option in this._oldOptions)
                 {
-                    if (option.GetType() == typeof(Meat))
+                    if (option.Type == PizzaOption.PizzaType.MEAT)
                     {
                         for (int i = 0; i < PizzaOption.AllMeats.Count; i++)
                         {
-                            if(((Meat)option) == PizzaOption.AllMeats[i])
+                            if(option == PizzaOption.AllMeats[i])
                             {
                                 added[i] = !added[i];
                             }
@@ -170,11 +170,11 @@ namespace PizzaCreator
             {
                 foreach (PizzaOption option in this._oldOptions)
                 {
-                    if (option.GetType() == typeof(Vegetable))
+                    if (option.Type == PizzaOption.PizzaType.VEGE)
                     {
                         for (int i = 0; i < PizzaOption.AllVeges.Count; i++)
                         {
-                            if (((Vegetable)option) == PizzaOption.AllVeges[i])
+                            if (option == PizzaOption.AllVeges[i])
                             {
                                 added[i] = !added[i];
                             }
@@ -196,11 +196,11 @@ namespace PizzaCreator
             Console.WriteLine();
             Console.WriteLine("Pizza Sauces.");
 
-            PizzaSauce oldSauce = null;
+            PizzaOption oldSauce = null;
 
             if (this._oldOptions.Count > 0)
             {
-                oldSauce = (PizzaSauce)this._oldOptions.Find(t => t.GetType() == typeof(PizzaSauce));
+                oldSauce = this._oldOptions.Find(t => t.Type == PizzaOption.PizzaType.SAUCE);
             }
 
             ChooseOption(oldSauce, PizzaOption.AllSauces);
@@ -214,11 +214,11 @@ namespace PizzaCreator
             
             Console.WriteLine();
             Console.WriteLine("Pizza Cheeses.");
-            Cheese oldCheese = null;
+            PizzaOption oldCheese = null;
 
             if (this._oldOptions.Count > 0)
             {
-                oldCheese = (Cheese)this._oldOptions.Find(t => t.GetType() == typeof(Cheese));
+                oldCheese = this._oldOptions.Find(t => t.Type == PizzaOption.PizzaType.CHEESE);
             }
 
             ChooseOption(oldCheese, PizzaOption.AllCheeses);
@@ -234,11 +234,11 @@ namespace PizzaCreator
             Console.WriteLine();
             Console.WriteLine("Delivery Options.");
 
-            Delivery oldDelivery = null;
+            PizzaOption oldDelivery = null;
 
             if (this._oldOptions.Count > 0)
             {
-                oldDelivery = (Delivery)this._oldOptions.Find(t => t.GetType() == typeof(Delivery));
+                oldDelivery = this._oldOptions.Find(t => t.Type == PizzaOption.PizzaType.DELIVERY);
             }
 
             ChooseOption(oldDelivery, PizzaOption.DeliveryOptions);
@@ -246,12 +246,12 @@ namespace PizzaCreator
 
         public void Display()
         {
-            PizzaSize size = (PizzaSize)this._options.Find(t => t.GetType() == typeof(PizzaSize));
-            Delivery delivery = (Delivery)this._options.Find(t => t.GetType() == typeof(Delivery));
-            PizzaSauce sauce = (PizzaSauce)this._options.Find(t => t.GetType() == typeof(PizzaSauce));
-            Cheese cheese = (Cheese)this._options.Find(t => t.GetType() == typeof(Cheese));
-            List<PizzaOption> meats = this._options.FindAll(t => t.GetType() == typeof(Meat));
-            List<PizzaOption> veges = this._options.FindAll(t => t.GetType() == typeof(Vegetable));
+            PizzaOption size = this._options.Find(t => t.Type == PizzaOption.PizzaType.SIZE);
+            PizzaOption delivery = this._options.Find(t => t.Type == PizzaOption.PizzaType.DELIVERY);
+            PizzaOption sauce = this._options.Find(t => t.Type == PizzaOption.PizzaType.SAUCE);
+            PizzaOption cheese = this._options.Find(t => t.Type == PizzaOption.PizzaType.CHEESE);
+            List<PizzaOption> meats = this._options.FindAll(t => t.Type == PizzaOption.PizzaType.MEAT);
+            List<PizzaOption> veges = this._options.FindAll(t => t.Type == PizzaOption.PizzaType.VEGE);
 
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.White;
