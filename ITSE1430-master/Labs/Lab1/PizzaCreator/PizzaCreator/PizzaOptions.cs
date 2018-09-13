@@ -69,7 +69,7 @@ namespace PizzaCreator
 
         public override string ToString()
         {
-            return this._name + " ($" + Math.Round(this._cost, 2) + ")";
+            return $"{this._name} (${Math.Round(this._cost, 2)})";
         }
 
     }

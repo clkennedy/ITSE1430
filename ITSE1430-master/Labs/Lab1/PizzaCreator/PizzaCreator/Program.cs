@@ -16,17 +16,17 @@ namespace PizzaCreator
         {
             Menu _menu = setupMenu();
 
-            _menu.start();
+            _menu.Start();
         }
 
         static public Menu setupMenu()
         {
             Menu menu = new Menu();
 
-            menu.addMenuItem(new MenuItem("New Order", menu.newOrder));
-            menu.addMenuItem(new MenuItem("Modify Order", menu.modifyOrder));
-            menu.addMenuItem(new MenuItem("Display Order", menu.displayOrder));
-            menu.addMenuItem(new MenuItem("Quit", Program.quit));
+            menu.AddMenuItem(new MenuItem("New Order", menu.NewOrder));
+            menu.AddMenuItem(new MenuItem("Modify Order", menu.ModifyOrder));
+            menu.AddMenuItem(new MenuItem("Display Order", menu.DisplayOrder));
+            menu.AddMenuItem(new MenuItem("Quit", Program.quit));
             
             return menu;
         }

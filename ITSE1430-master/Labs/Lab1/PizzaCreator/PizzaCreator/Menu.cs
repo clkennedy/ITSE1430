@@ -22,7 +22,7 @@ namespace PizzaCreator
             this._order = null;
         }
 
-        public void addMenuItem(MenuItem mi)
+        public void AddMenuItem(MenuItem mi)
         {
             this._items.Add(mi);
         }
@@ -41,14 +41,13 @@ namespace PizzaCreator
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("Cart: $");
-            Console.Write((this._order != null) ? Math.Round(this._order.Total, 2).ToString("0.00") : "0.00");
+            Console.Write(Math.Round(this._order?.Total ?? 0.00, 2).ToString("0.00"));
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
-            
         }
 
-        public void start()
+        public void Start()
         {
             int input = 0;
             do
@@ -56,16 +55,16 @@ namespace PizzaCreator
                 Console.Clear();
                 this.Display();
 
-                input = getValidInput();
+                input = GetValidInput();
 
                 this._items[input - 1].call();
 
-            } while (input < 5);
+            } while (input <= this._items.Count);
         }
 
-        private int getValidInput()
+        private int GetValidInput()
         {
-            Regex r = new Regex("^[1-4]");
+            Regex r = new Regex($"^[1-{this._items.Count}]");
 
             string input = "";
 
@@ -87,7 +86,7 @@ namespace PizzaCreator
         }
 
 
-        public void newOrder()
+        public void NewOrder()
         {
             Console.Clear();
             if (this._order != null)
@@ -97,37 +96,26 @@ namespace PizzaCreator
 
                 string input = Console.ReadKey().KeyChar.ToString();
 
-                if (!r.IsMatch(input))
-                {
-                    return;
-                }
+                if (!r.IsMatch(input)) return;
             }
             this._order = new Order();
-            //Console.WriteLine("New Order");
         }
-        public void modifyOrder()
+        public void ModifyOrder()
         {
-            if(this._order != null)
+            if (!this._order?.Modify() ?? true)
             {
-                this._order.modify();
+                Console.WriteLine("No Order Exist to Modify, press any key to continue..");
+                Console.ReadKey();
             }
-            else
-            {
-                Console.WriteLine("No Order Exist to Modify");
-            }
-            
         }
-        public void displayOrder()
+        public void DisplayOrder()
         {
-            if(this._order != null)
+            if(!this._order?.Display() ?? true)
             {
-                this._order.Display();
+                Console.WriteLine("No Order Exist to Display, press any key to continue..");
+                Console.ReadKey();
             }
-            else
-            {
-                Console.WriteLine("No Order Exist to Display");
-            }
-            
+                
         }
 
     }

@@ -25,13 +25,14 @@ namespace PizzaCreator
         public Order()
         {
             _options = new List<PizzaOption>();
-            modify();
+            Modify();
         }
         
         public PizzaOption ChooseOption(PizzaOption oldOption, List<PizzaOption> options)
         {
             PizzaOption chosenOption = null;
 
+            //for testing input values
             Regex r = new Regex("^[1-" + options.Count + "]$");
             int count = 0;
             string input = "";
@@ -66,6 +67,7 @@ namespace PizzaCreator
 
         public bool[] ChooseOption(bool[] added, List<PizzaOption> options, string title )
         {
+            //for testing input value
             Regex r = new Regex("^[1-" + (options.Count + 1) + "]$");
             int index;
             string input = "";
@@ -119,7 +121,6 @@ namespace PizzaCreator
         private void SetPizzaSize()
         {
             Console.Clear();
-            Regex r = new Regex("^[1-" + PizzaOption.AllSizes.Count + "]$");
 
             Console.WriteLine();
             Console.WriteLine("Pizza Sizes.");
@@ -163,7 +164,6 @@ namespace PizzaCreator
 
         private void SetPizzaVeges()
         {
-            Regex r = new Regex("^[1-" + (PizzaOption.AllVeges.Count + 1) + "]$");
             bool[] added = new bool[PizzaOption.AllVeges.Count];
 
             if (this._options.Count > 0)
@@ -190,7 +190,6 @@ namespace PizzaCreator
         private void SetPizzaSauce()
         {
             Console.Clear();
-            Regex r = new Regex("^[1-" + (PizzaOption.AllSauces.Count) + "]$");
             bool[] added = new bool[PizzaOption.AllSauces.Count];
 
             Console.WriteLine();
@@ -209,7 +208,6 @@ namespace PizzaCreator
         private void SetPizzaCheese()
         {
             Console.Clear();
-            Regex r = new Regex("^[1-" + (PizzaOption.AllCheeses.Count) + "]$");
             bool[] added = new bool[PizzaOption.AllCheeses.Count];
             
             Console.WriteLine();
@@ -228,8 +226,6 @@ namespace PizzaCreator
         private void SetDelivery()
         {
             Console.Clear();
-            Regex r = new Regex("^[1-" + (PizzaOption.DeliveryOptions.Count) + "]$");
-            bool[] added = new bool[PizzaOption.DeliveryOptions.Count];
 
             Console.WriteLine();
             Console.WriteLine("Delivery Options.");
@@ -244,7 +240,7 @@ namespace PizzaCreator
             ChooseOption(oldDelivery, PizzaOption.DeliveryOptions);
         }
 
-        public void Display()
+        public bool Display()
         {
             PizzaOption size = this._options.Find(t => t.Type == PizzaOption.PizzaType.SIZE);
             PizzaOption delivery = this._options.Find(t => t.Type == PizzaOption.PizzaType.DELIVERY);
@@ -295,10 +291,12 @@ namespace PizzaCreator
             Console.WriteLine();
             Console.Write("Press any key to continue..");
             Console.ReadKey();
+
+            return true;
             
         }
 
-        public void modify()
+        public bool Modify()
         {
             this._oldOptions = this._options;
             this._options = new List<PizzaOption>();
@@ -312,6 +310,8 @@ namespace PizzaCreator
             SetDelivery();
 
             this.Display();
+
+            return true;
         }
     }
 }

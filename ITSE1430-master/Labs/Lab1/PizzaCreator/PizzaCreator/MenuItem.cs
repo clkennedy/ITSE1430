@@ -15,6 +15,7 @@ namespace PizzaCreator
     
     class MenuItem
     {
+        //method to call on menu selection
         private Action _callMethod;
         private string _menuName;
 
@@ -42,7 +43,7 @@ namespace PizzaCreator
 
         public void call()
         {
-            this._callMethod();
+            this._callMethod?.Invoke();
         }
 
         public override string ToString()
