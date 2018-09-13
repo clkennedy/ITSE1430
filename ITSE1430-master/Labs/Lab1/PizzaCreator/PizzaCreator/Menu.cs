@@ -57,7 +57,7 @@ namespace PizzaCreator
 
                 input = GetValidInput();
 
-                this._items[input - 1].call();
+                this._items[input - 1].Call();
 
             } while (input <= this._items.Count);
         }

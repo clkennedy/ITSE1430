@@ -28,7 +28,7 @@ namespace PizzaCreator
             Modify();
         }
         
-        public PizzaOption ChooseOption(PizzaOption oldOption, List<PizzaOption> options)
+        public void ChooseOption(PizzaOption oldOption, List<PizzaOption> options)
         {
             PizzaOption chosenOption = null;
 
@@ -61,11 +61,10 @@ namespace PizzaCreator
 
             this._options.Add(chosenOption);
             this._total += chosenOption.Cost;
-
-            return chosenOption;
+            
         }
 
-        public bool[] ChooseOption(bool[] added, List<PizzaOption> options, string title )
+        public void ChooseOption(bool[] added, List<PizzaOption> options, string title )
         {
             //for testing input value
             Regex r = new Regex("^[1-" + (options.Count + 1) + "]$");
@@ -114,8 +113,6 @@ namespace PizzaCreator
                     this._total += options[i].Cost;
                 }
             }
-
-            return added;
         }
 
         private void SetPizzaSize()

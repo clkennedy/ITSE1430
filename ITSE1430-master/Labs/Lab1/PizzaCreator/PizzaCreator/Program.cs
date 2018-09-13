@@ -14,25 +14,25 @@ namespace PizzaCreator
     {
         static void Main(string[] args)
         {
-            Menu _menu = setupMenu();
+            Menu _menu = SetupMenu();
 
             _menu.Start();
         }
 
-        static public Menu setupMenu()
+        static public Menu SetupMenu()
         {
             Menu menu = new Menu();
 
             menu.AddMenuItem(new MenuItem("New Order", menu.NewOrder));
             menu.AddMenuItem(new MenuItem("Modify Order", menu.ModifyOrder));
             menu.AddMenuItem(new MenuItem("Display Order", menu.DisplayOrder));
-            menu.AddMenuItem(new MenuItem("Quit", Program.quit));
+            menu.AddMenuItem(new MenuItem("Quit", Program.Quit));
             
             return menu;
         }
 
         
-        static public void quit()
+        static public void Quit()
         {
             Environment.Exit(0);
         }

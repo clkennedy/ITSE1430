@@ -30,18 +30,18 @@ namespace PizzaCreator
             this._menuName = name;
         }
 
-        public void clear()
+        public void Clear()
         {
             this._menuName = "";
             this._callMethod = null;
         }
 
-        public void changeCallBackMethod(Action method)
+        public void ChangeCallBackMethod(Action method)
         {
             this._callMethod = method;
         }
 
-        public void call()
+        public void Call()
         {
             this._callMethod?.Invoke();
         }
