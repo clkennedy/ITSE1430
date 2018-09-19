@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace CharacterCreator
 {
-    class Attribute
+    public class Attribute
     {
         public const int MAX_VALUE = 100;
         public const int MIN_VALUE = 1;
+
+        public const string STRENGTH = "Strength";
+        public const string INTELLEGENCE = "Intellegence";
+        public const string CHARISMA = "Charisma";
+        public const string CONSTITUTION = "Constitution";
+        public const string WISDOM = "Wisdom";
+        public const string LUCK = "Luck";
+        public const string DEXERITY = "Dexterity";
 
         private string _name;
         private int _value;

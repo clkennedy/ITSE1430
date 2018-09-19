@@ -8,8 +8,8 @@ namespace CharacterCreator
 {
     public class Character
     {
-        public enum ClassType { FIGHTER, HUNTER, PRIEST, ROGUE, WIZARD};
-        public enum Race { HUMAN, ELF, DWARF, HALFLNG, GNOME, ORC, HALFELF, HALFORC};
+        public enum ClassType { Fighter, Hunter, Priest, Rogue, Wizard};
+        public enum Race { Human, Elf, Dwarf, Halfling, Gnome, Orc, HalfElf, HalfOrc};
 
         private string _name;
         private string _description;
@@ -40,8 +40,8 @@ namespace CharacterCreator
         {
             this._name = "";
             this._description = "";
-            this._classType = ClassType.FIGHTER;
-            this._race = Race.HUMAN;
+            this._classType = ClassType.Fighter;
+            this._race = Race.Human;
             ResetAttributes();
         }
         public Character( string name, string desc, ClassType classType, Race race)
@@ -56,13 +56,19 @@ namespace CharacterCreator
         public void ResetAttributes()
         {
             this._attributes = new List<Attribute>();
-            this._attributes.Add(new Attribute("Strength", 1));
-            this._attributes.Add(new Attribute("Dexterity", 1));
-            this._attributes.Add(new Attribute("Constitution", 1));
-            this._attributes.Add(new Attribute("Wisdon", 1));
-            this._attributes.Add(new Attribute("Intelegence", 1));
-            this._attributes.Add(new Attribute("Charisma", 1));
-            this._attributes.Add(new Attribute("Luck", 1));
+            this._attributes.Add(new Attribute(Attribute.STRENGTH, 1));
+            this._attributes.Add(new Attribute(Attribute.DEXERITY, 1));
+            this._attributes.Add(new Attribute(Attribute.CONSTITUTION, 1));
+            this._attributes.Add(new Attribute(Attribute.WISDOM, 1));
+            this._attributes.Add(new Attribute(Attribute.INTELLEGENCE, 1));
+            this._attributes.Add(new Attribute(Attribute.CHARISMA, 1));
+            this._attributes.Add(new Attribute(Attribute.LUCK, 1));
+        }
+
+        public void SetAttribute(string attName, int attValue)
+        {
+            Attribute att = this._attributes.Find(t => t.Name == attName);
+            att.Value = attValue;
         }
 
     }

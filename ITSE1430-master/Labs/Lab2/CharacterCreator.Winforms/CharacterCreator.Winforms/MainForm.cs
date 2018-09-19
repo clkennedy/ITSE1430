@@ -12,6 +12,8 @@ namespace CharacterCreator.Winforms
 {
     public partial class MainForm : Form
     {
+        private Character[] characterList = new Character[100];
+        private int currentNumberOfCharacters = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -40,7 +42,16 @@ namespace CharacterCreator.Winforms
             NewCharacterForm characterForm = new NewCharacterForm();
             this.AddOwnedForm(characterForm);
 
-            characterForm.ShowDialog(this);
+            Character newCharacter = characterForm.ShowWindow(this);
+
+            this.characterList[currentNumberOfCharacters++] = newCharacter;
+            
+        }
+
+        public void RefreshList()
+        {
+            listBoxCharacterList.DataSource = null;
+
         }
 
         private void MainForm_Load( object sender, EventArgs e )
