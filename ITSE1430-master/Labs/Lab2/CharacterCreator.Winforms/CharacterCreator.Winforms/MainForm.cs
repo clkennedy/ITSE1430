@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Author : Cameron Kennedy
+ * ITSE 1430
+ * 9/20/2018 
+ */
+ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +24,7 @@ namespace CharacterCreator.Winforms
             InitializeComponent();
         }
 
-        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
+        private void ExitProgramOnClick(object sender, EventArgs e)
         {
             ExitProgram();
         }
@@ -29,7 +34,7 @@ namespace CharacterCreator.Winforms
             this.Close();
         }
 
-        private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
+        private void AboutFormOnClick(object sender, EventArgs e)
         {
             AboutForm aboutForm = new AboutForm();
 
@@ -37,26 +42,102 @@ namespace CharacterCreator.Winforms
             aboutForm.ShowDialog(this);
         }
 
-        private void newToolStripMenuItem_Click( object sender, EventArgs e )
+        private void NewCharacterOnClick(object sender, EventArgs e)
         {
             NewCharacterForm characterForm = new NewCharacterForm();
             this.AddOwnedForm(characterForm);
 
             Character newCharacter = characterForm.ShowWindow(this);
-
-            this.characterList[currentNumberOfCharacters++] = newCharacter;
-            
+            if(newCharacter != null)
+            {
+                this.characterList[currentNumberOfCharacters++] = newCharacter;
+                RefreshList();
+                if(currentNumberOfCharacters == this.characterList.Length - 1)
+                {
+                    IncreaseArraySize();
+                }
+            }
         }
 
         public void RefreshList()
         {
             listBoxCharacterList.DataSource = null;
+            listBoxCharacterList.DataSource = characterList;
+        }
+        public void RemoveCharacter()
+        {
+            if (this.listBoxCharacterList.SelectedItem == null) return;
+
+            Character character = (Character)listBoxCharacterList.SelectedItem;
+
+            if (MessageBox.Show(this, $"Delete {character.CharacterName}?", "Delete?", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            int indexOfChar = -1;
+            for (int i = 0; i < this.currentNumberOfCharacters; i++)
+            {
+                if (this.characterList[i] == character)
+                {
+                    indexOfChar = i;
+                }
+            }
+
+            if (indexOfChar != -1)
+            {
+                for (int i = indexOfChar; i < this.currentNumberOfCharacters; i++)
+                {
+                    if (i < this.characterList.Length - 1)
+                    {
+                        this.characterList[i] = this.characterList[i + 1];
+                    }
+                    else
+                    {
+                        IncreaseArraySize();
+                    }
+
+                }
+            }
+            currentNumberOfCharacters--;
+            RefreshList();
+        }
+
+        private void IncreaseArraySize()
+        {
+            Character[] newCharacterSizeList = new Character[this.characterList.Length * 2];
+            for (int i = 0; i < characterList.Length; i++)
+            {
+                newCharacterSizeList[i] = this.characterList[i];
+            }
+            this.characterList = newCharacterSizeList;
+            newCharacterSizeList = null;
+        }
+
+        private void LoadMainForm(object sender, EventArgs e)
+        {
 
         }
 
-        private void MainForm_Load( object sender, EventArgs e )
+        public void EditCharacter()
         {
+            if (listBoxCharacterList.SelectedItem != null)
+            {
+                new NewCharacterForm().ShowWindow(this, (Character)listBoxCharacterList.SelectedItem);
+                RefreshList();
+            }
+        }
 
+        private void DoubleClickCharacterInListBox(object sender, EventArgs e)
+        {
+            EditCharacter();
+        }
+
+        private void EditCharcterOnClick(object sender, EventArgs e)
+        {
+            EditCharacter();
+        }
+
+        private void DeleteCharacterOnClick(object sender, EventArgs e)
+        {
+            RemoveCharacter();
         }
     }
 }

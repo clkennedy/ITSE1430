@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Author : Cameron Kennedy
+ * ITSE 1430
+ * 9/20/2018 
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

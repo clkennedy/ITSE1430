@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Author : Cameron Kennedy
+ * ITSE 1430
+ * 9/20/2018 
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,11 +69,19 @@ namespace CharacterCreator
             this._attributes.Add(new Attribute(Attribute.CHARISMA, 1));
             this._attributes.Add(new Attribute(Attribute.LUCK, 1));
         }
-
         public void SetAttribute(string attName, int attValue)
         {
             Attribute att = this._attributes.Find(t => t.Name == attName);
             att.Value = attValue;
+        }
+
+        public int GetAttribute(string attName)
+        {
+            return this._attributes.Find(t => t.Name == attName).Value;
+        }
+        public override string ToString()
+        {
+            return $"{this._name} | {this._race.ToString()} {this._classType.ToString()} ";
         }
 
     }
