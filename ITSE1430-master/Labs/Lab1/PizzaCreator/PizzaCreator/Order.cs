@@ -78,7 +78,7 @@ namespace PizzaCreator
                 Console.WriteLine(title);
                 count = 0;
 
-                foreach (PizzaOption meat in PizzaOption.AllMeats)
+                foreach (PizzaOption meat in options)
                 {
                     Console.WriteLine($"{++count}) {meat.Name} {((added[count - 1]) ? " (Remove)" : "(Add)")}");
                 }
