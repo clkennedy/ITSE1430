@@ -26,7 +26,7 @@ namespace PizzaCreator
                                                         new PizzaOption("Sausage", .75, PizzaType.MEAT)};
 
         public static List<PizzaOption> AllVeges = new List<PizzaOption>(){
-                                                        new PizzaOption("Balck Olives", .50, PizzaType.VEGE),
+                                                        new PizzaOption("Bck Olives", .50, PizzaType.VEGE),
                                                         new PizzaOption("Mushrooms", .50, PizzaType.VEGE),
                                                         new PizzaOption("Onions", .50, PizzaType.VEGE),
                                                         new PizzaOption("Peppers", .50, PizzaType.VEGE)};
