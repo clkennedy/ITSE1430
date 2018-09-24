@@ -77,10 +77,10 @@
             this.saveButton.Location = new System.Drawing.Point(197, 283);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 4;
+            this.saveButton.TabIndex = 11;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.SaveButtonOnClick);
             // 
             // comboBoxRace
             // 
@@ -98,7 +98,7 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(120, 20);
             this.textBoxName.TabIndex = 0;
-            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+            this.textBoxName.TextChanged += new System.EventHandler(this.NameTextBoxChanged);
             // 
             // labelName
             // 
@@ -150,10 +150,10 @@
             this.cancelButton.Location = new System.Drawing.Point(197, 312);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 9;
+            this.cancelButton.TabIndex = 12;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButtonOnClick);
             // 
             // labelStrength
             // 
@@ -170,9 +170,10 @@
             this.strScrollBar.Location = new System.Drawing.Point(147, 39);
             this.strScrollBar.Name = "strScrollBar";
             this.strScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.strScrollBar.TabIndex = 12;
+            this.strScrollBar.TabIndex = 4;
+            this.strScrollBar.TabStop = true;
             this.strScrollBar.Value = 50;
-            this.strScrollBar.ValueChanged += new System.EventHandler(this.strScrollBar_ValueChanged);
+            this.strScrollBar.ValueChanged += new System.EventHandler(this.StrengthScrollBarValueChanged);
             // 
             // strScoreLabel
             // 
@@ -198,9 +199,10 @@
             this.intelScrollBar.Location = new System.Drawing.Point(147, 72);
             this.intelScrollBar.Name = "intelScrollBar";
             this.intelScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.intelScrollBar.TabIndex = 15;
+            this.intelScrollBar.TabIndex = 5;
+            this.intelScrollBar.TabStop = true;
             this.intelScrollBar.Value = 50;
-            this.intelScrollBar.ValueChanged += new System.EventHandler(this.intelScrollBar_ValueChanged);
+            this.intelScrollBar.ValueChanged += new System.EventHandler(this.IntellegenceScrollBarValueChanged);
             // 
             // intelLabel
             // 
@@ -226,9 +228,10 @@
             this.dexScrollBar.Location = new System.Drawing.Point(147, 100);
             this.dexScrollBar.Name = "dexScrollBar";
             this.dexScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.dexScrollBar.TabIndex = 18;
+            this.dexScrollBar.TabIndex = 6;
+            this.dexScrollBar.TabStop = true;
             this.dexScrollBar.Value = 50;
-            this.dexScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dexScrollBar_Scroll);
+            this.dexScrollBar.ValueChanged += new System.EventHandler(this.DexterityScrollBarValueChanged);
             // 
             // dexLabel
             // 
@@ -254,9 +257,10 @@
             this.conScrollBar.Location = new System.Drawing.Point(147, 131);
             this.conScrollBar.Name = "conScrollBar";
             this.conScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.conScrollBar.TabIndex = 21;
+            this.conScrollBar.TabIndex = 7;
+            this.conScrollBar.TabStop = true;
             this.conScrollBar.Value = 50;
-            this.conScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.conScrollBar_Scroll);
+            this.conScrollBar.ValueChanged += new System.EventHandler(this.ConstitutionScrollBarValueChanged);
             // 
             // conLabel
             // 
@@ -282,9 +286,10 @@
             this.wisScrollBar.Location = new System.Drawing.Point(147, 163);
             this.wisScrollBar.Name = "wisScrollBar";
             this.wisScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.wisScrollBar.TabIndex = 24;
+            this.wisScrollBar.TabIndex = 8;
+            this.wisScrollBar.TabStop = true;
             this.wisScrollBar.Value = 50;
-            this.wisScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.wisScrollBar_Scroll);
+            this.wisScrollBar.ValueChanged += new System.EventHandler(this.WisdomScrollBarValueChanged);
             // 
             // wisLabel
             // 
@@ -310,9 +315,10 @@
             this.charScrollBar.Location = new System.Drawing.Point(147, 191);
             this.charScrollBar.Name = "charScrollBar";
             this.charScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.charScrollBar.TabIndex = 27;
+            this.charScrollBar.TabIndex = 9;
+            this.charScrollBar.TabStop = true;
             this.charScrollBar.Value = 50;
-            this.charScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.charScrollBar_Scroll);
+            this.charScrollBar.ValueChanged += new System.EventHandler(this.CharismaScrollBarValueChanged);
             // 
             // charLabel
             // 
@@ -348,9 +354,10 @@
             this.luckScrollBar.Location = new System.Drawing.Point(148, 220);
             this.luckScrollBar.Name = "luckScrollBar";
             this.luckScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.luckScrollBar.TabIndex = 31;
+            this.luckScrollBar.TabIndex = 10;
+            this.luckScrollBar.TabStop = true;
             this.luckScrollBar.Value = 10;
-            this.luckScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.luckScrollBar_Scroll);
+            this.luckScrollBar.ValueChanged += new System.EventHandler(this.LuckScrollBarValueChanged);
             // 
             // errorLabel
             // 
@@ -368,7 +375,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 350);
+            this.ClientSize = new System.Drawing.Size(284, 361);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.luckScrollBar);
             this.Controls.Add(this.luckScoreLabel);
@@ -401,6 +408,8 @@
             this.Controls.Add(this.comboBoxRace);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.comboBoxClassType);
+            this.MaximumSize = new System.Drawing.Size(300, 400);
+            this.MinimumSize = new System.Drawing.Size(300, 400);
             this.Name = "NewCharacterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Character";
