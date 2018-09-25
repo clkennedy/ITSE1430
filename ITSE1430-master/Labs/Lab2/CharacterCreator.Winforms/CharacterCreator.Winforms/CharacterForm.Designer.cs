@@ -1,6 +1,6 @@
 ﻿namespace CharacterCreator.Winforms
 {
-    partial class NewCharacterForm
+    partial class CharacterForm
     {
         /// <summary>
         /// Required designer variable.
@@ -376,6 +376,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 361);
+            this.ControlBox = false;
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.luckScrollBar);
             this.Controls.Add(this.luckScoreLabel);
@@ -411,6 +412,7 @@
             this.MaximumSize = new System.Drawing.Size(300, 400);
             this.MinimumSize = new System.Drawing.Size(300, 400);
             this.Name = "NewCharacterForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Character";
             this.ResumeLayout(false);

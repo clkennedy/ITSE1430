@@ -44,7 +44,7 @@ namespace CharacterCreator.Winforms
 
         private void NewCharacterOnClick(object sender, EventArgs e)
         {
-            NewCharacterForm characterForm = new NewCharacterForm();
+            CharacterForm characterForm = new CharacterForm();
             this.AddOwnedForm(characterForm);
 
             Character newCharacter = characterForm.ShowWindow(this);
@@ -120,7 +120,7 @@ namespace CharacterCreator.Winforms
         {
             if (listBoxCharacterList.SelectedItem != null)
             {
-                new NewCharacterForm().ShowWindow(this, (Character)listBoxCharacterList.SelectedItem);
+                new CharacterForm().ShowWindow(this, (Character)listBoxCharacterList.SelectedItem);
                 RefreshList();
             }
         }

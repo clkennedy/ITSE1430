@@ -17,10 +17,9 @@ using CharacterCreator;
 
 namespace CharacterCreator.Winforms
 {
-    public partial class NewCharacterForm : Form
+    public partial class CharacterForm : Form
     {
-        private bool _saveChar = false;
-        public NewCharacterForm()
+        public CharacterForm()
         {
             InitializeComponent();
             
@@ -62,13 +61,13 @@ namespace CharacterCreator.Winforms
 
         private void SaveButtonOnClick( object sender, EventArgs e )
         {
-            this._saveChar = true;
+            DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void CancelButtonOnClick( object sender, EventArgs e )
         {
-            this._saveChar = false;
+            DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -109,31 +108,16 @@ namespace CharacterCreator.Winforms
         public Character ShowWindow(IWin32Window owner)
         {
             base.ShowDialog(owner);
-            Character newCharacter = null;
-
-            if (this._saveChar)
-            {
-            newCharacter = new Character(textBoxName.Text, textBoxBio.Text,
-                (Character.ClassType)comboBoxClassType.SelectedItem,
-                (Character.Race)comboBoxRace.SelectedItem);
-
-            newCharacter.SetAttribute(Attribute.STRENGTH, strScrollBar.Value);
-            newCharacter.SetAttribute(Attribute.DEXERITY, dexScrollBar.Value);
-            newCharacter.SetAttribute(Attribute.CONSTITUTION, conScrollBar.Value);
-            newCharacter.SetAttribute(Attribute.CHARISMA, charScrollBar.Value);
-            newCharacter.SetAttribute(Attribute.INTELLEGENCE, intelScrollBar.Value);
-            newCharacter.SetAttribute(Attribute.WISDOM, wisScrollBar.Value);
-            newCharacter.SetAttribute(Attribute.LUCK, luckScrollBar.Value);
-            }
-
-            return newCharacter;
+            return SaveCharacter(null);
         }
         public Character ShowWindow(IWin32Window owner, Character character)
         {
+            this.Name = $"Edit Character: {character.CharacterName}";
+
             textBoxName.Text = character.CharacterName;
             textBoxBio.Text = character.CharacterDescription;
-            comboBoxClassType.SelectedItem = (Object)character.CharacterClassType;
-            comboBoxRace.SelectedItem = (Object)character.CharacterRace;
+            comboBoxClassType.SelectedItem = (object)character.CharacterClassType;
+            comboBoxRace.SelectedItem = (object)character.CharacterRace;
 
             strScrollBar.Value = character.GetAttribute(Attribute.STRENGTH);
             dexScrollBar.Value = character.GetAttribute(Attribute.DEXERITY);
@@ -142,12 +126,21 @@ namespace CharacterCreator.Winforms
             intelScrollBar.Value = character.GetAttribute(Attribute.INTELLEGENCE);
             wisScrollBar.Value = character.GetAttribute(Attribute.WISDOM);
             luckScrollBar.Value = character.GetAttribute(Attribute.LUCK);
-
-
+            
             base.ShowDialog(owner);
 
-            if (this._saveChar)
+            return SaveCharacter(character);
+        }
+
+        private Character SaveCharacter(Character character)
+        {
+            if (this.DialogResult == DialogResult.OK)
             {
+                if(character == null)
+                {
+                    character = new Character();
+                }
+
                 character.CharacterName = textBoxName.Text;
                 character.CharacterDescription = textBoxBio.Text;
                 character.CharacterClassType = (Character.ClassType)comboBoxClassType.SelectedItem;
@@ -166,14 +159,13 @@ namespace CharacterCreator.Winforms
         private void AnyKeyPressToCloseForm(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar.Equals((char)Keys.Enter) && this.saveButton.Enabled){
-                this._saveChar = true;
+                DialogResult = DialogResult.OK;
                 this.Close();
             }
             else if (e.KeyChar.Equals((char)Keys.Escape))
             {
                 this.Close();
             }
-            
         }
     }
 }
