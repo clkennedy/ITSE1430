@@ -28,9 +28,11 @@ namespace CharacterCreator.Winforms
 
             for(int i = 0; i < this.Controls.Count; i ++)
             {
-                this.Controls[i].KeyPress += AnyKeyPressToCloseForm;
+                if (!this.Controls[i].Name.Equals("textBoxBio"))
+                {
+                    this.Controls[i].KeyPress += AnyKeyPressToCloseForm;
+                }
             }
-
         }
 
         private void NameTextBoxChanged( object sender, EventArgs e )
@@ -71,40 +73,86 @@ namespace CharacterCreator.Winforms
             this.Close();
         }
 
+        #region Attributes
         private void StrengthScrollBarValueChanged( object sender, EventArgs e )
         {
-            strScoreLabel.Text = strScrollBar.Value.ToString();
+            if (HasAvailablePoints())
+            {
+                strScoreLabel.Text = strScrollBar.Value.ToString();
+            } else
+            {
+                strScrollBar.Value--;
+            }
+            
         }
 
         private void IntellegenceScrollBarValueChanged( object sender, EventArgs e )
         {
-            intelScoreLabel.Text = intelScrollBar.Value.ToString();
+            if (HasAvailablePoints())
+            {
+                intelScoreLabel.Text = intelScrollBar.Value.ToString();
+            } else
+            {
+                intelScrollBar.Value--;
+            }
         }
         
         private void DexterityScrollBarValueChanged(object sender, EventArgs e)
         {
-            dexScoreLabel.Text = dexScrollBar.Value.ToString();
+            if (HasAvailablePoints())
+            {
+                dexScoreLabel.Text = dexScrollBar.Value.ToString();
+            } else
+            {
+                dexScrollBar.Value--;
+            }
         }
 
         private void ConstitutionScrollBarValueChanged(object sender, EventArgs e)
         {
-            conScoreLabel.Text = conScrollBar.Value.ToString();
+            if (HasAvailablePoints())
+            {
+                conScoreLabel.Text = conScrollBar.Value.ToString();
+            } else
+            {
+                conScrollBar.Value--;
+            }
         }
         private void WisdomScrollBarValueChanged(object sender, EventArgs e)
         {
-            wisScorLabel.Text = wisScrollBar.Value.ToString();
+            if (HasAvailablePoints())
+            {
+                wisScorLabel.Text = wisScrollBar.Value.ToString();
+            } else
+            {
+                wisScrollBar.Value--;
+            }
         }
         
         private void CharismaScrollBarValueChanged(object sender, EventArgs e)
         {
-            charScoreLabel.Text = charScrollBar.Value.ToString();
+            if (HasAvailablePoints())
+            {
+                charScoreLabel.Text = charScrollBar.Value.ToString();
+            } else
+            {
+                charScrollBar.Value--;
+            }
         }
 
         private void LuckScrollBarValueChanged(object sender, EventArgs e)
         {
-            luckScoreLabel.Text = luckScrollBar.Value.ToString();
+            if (HasAvailablePoints())
+            {
+                luckScoreLabel.Text = luckScrollBar.Value.ToString();
+            } else
+            {
+                luckScrollBar.Value--;
+            }
         }
+        #endregion
 
+        #region CustomShowWindows
         public Character ShowWindow(IWin32Window owner)
         {
             base.ShowDialog(owner);
@@ -113,7 +161,34 @@ namespace CharacterCreator.Winforms
         public Character ShowWindow(IWin32Window owner, Character character)
         {
             this.Name = $"Edit Character: {character.CharacterName}";
+            SetCharacterValues(character);
+            
+            base.ShowDialog(owner);
 
+            return SaveCharacter(character);
+        }
+        #endregion
+
+        private bool HasAvailablePoints()
+        {
+            int pointsAvail = Attribute.TOTAL_ALLOCATED_POINTS_ALLOWED -
+                (luckScrollBar.Value +
+                strScrollBar.Value +
+                intelScrollBar.Value +
+                dexScrollBar.Value +
+                conScrollBar.Value +
+                charScrollBar.Value +
+                wisScrollBar.Value);
+
+            labelPointsAvail.Text = pointsAvail.ToString();
+
+            if (pointsAvail >= 0)
+                return true;
+            
+            return false;
+        }
+        private void SetCharacterValues(Character character )
+        {
             textBoxName.Text = character.CharacterName;
             textBoxBio.Text = character.CharacterDescription;
             comboBoxClassType.SelectedItem = (object)character.CharacterClassType;
@@ -126,12 +201,7 @@ namespace CharacterCreator.Winforms
             intelScrollBar.Value = character.GetAttribute(Attribute.INTELLEGENCE);
             wisScrollBar.Value = character.GetAttribute(Attribute.WISDOM);
             luckScrollBar.Value = character.GetAttribute(Attribute.LUCK);
-            
-            base.ShowDialog(owner);
-
-            return SaveCharacter(character);
         }
-
         private Character SaveCharacter(Character character)
         {
             if (this.DialogResult == DialogResult.OK)
@@ -166,6 +236,11 @@ namespace CharacterCreator.Winforms
             {
                 this.Close();
             }
+        }
+
+        private void CharacterForm_Load( object sender, EventArgs e )
+        {
+            HasAvailablePoints();
         }
     }
 }

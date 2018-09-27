@@ -60,6 +60,8 @@
             this.luckLabel = new System.Windows.Forms.Label();
             this.luckScrollBar = new System.Windows.Forms.HScrollBar();
             this.errorLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelPointsAvail = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxClassType
@@ -371,12 +373,32 @@
             this.errorLabel.Text = "Name";
             this.errorLabel.Visible = false;
             // 
-            // NewCharacterForm
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(145, 243);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 13);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Available points:";
+            // 
+            // labelPointsAvail
+            // 
+            this.labelPointsAvail.AutoSize = true;
+            this.labelPointsAvail.Location = new System.Drawing.Point(230, 244);
+            this.labelPointsAvail.Name = "labelPointsAvail";
+            this.labelPointsAvail.Size = new System.Drawing.Size(13, 13);
+            this.labelPointsAvail.TabIndex = 34;
+            this.labelPointsAvail.Text = "0";
+            // 
+            // CharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 361);
             this.ControlBox = false;
+            this.Controls.Add(this.labelPointsAvail);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.luckScrollBar);
             this.Controls.Add(this.luckScoreLabel);
@@ -411,10 +433,11 @@
             this.Controls.Add(this.comboBoxClassType);
             this.MaximumSize = new System.Drawing.Size(300, 400);
             this.MinimumSize = new System.Drawing.Size(300, 400);
-            this.Name = "NewCharacterForm";
+            this.Name = "CharacterForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Character";
+            this.Load += new System.EventHandler(this.CharacterForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,5 +477,7 @@
         private System.Windows.Forms.Label luckLabel;
         private System.Windows.Forms.HScrollBar luckScrollBar;
         private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelPointsAvail;
     }
 }
