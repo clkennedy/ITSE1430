@@ -24,7 +24,7 @@ namespace CharacterCreator.Winforms
 
         private void OnOkClick( object sender, EventArgs e )
         {
-            this.Close();
+            Close();
         }
 
         private void OnFormLoad( object sender, EventArgs e )

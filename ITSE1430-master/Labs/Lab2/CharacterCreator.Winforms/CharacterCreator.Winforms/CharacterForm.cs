@@ -160,7 +160,7 @@ namespace CharacterCreator.Winforms
         }
         public Character ShowWindow(IWin32Window owner, Character character)
         {
-            this.Name = $"Edit Character: {character.CharacterName}";
+            this.Text = $"Edit Character: {character.CharacterName}";
             SetCharacterValues(character);
             
             base.ShowDialog(owner);

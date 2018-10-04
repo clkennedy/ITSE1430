@@ -17,8 +17,7 @@ namespace CharacterCreator.Winforms
 {
     public partial class MainForm : Form
     {
-        private Character[] characterList = new Character[100];
-        private int currentNumberOfCharacters = 0;
+        CharacterDatabase _charDB = new CharacterDatabase();
         public MainForm()
         {
             InitializeComponent();
@@ -50,19 +49,15 @@ namespace CharacterCreator.Winforms
             Character newCharacter = characterForm.ShowWindow(this);
             if(newCharacter != null)
             {
-                this.characterList[currentNumberOfCharacters++] = newCharacter;
+                _charDB.Add(newCharacter);
                 RefreshList();
-                if(currentNumberOfCharacters == this.characterList.Length - 1)
-                {
-                    IncreaseArraySize();
-                }
             }
         }
 
         public void RefreshList()
         {
             listBoxCharacterList.DataSource = null;
-            listBoxCharacterList.DataSource = characterList;
+            listBoxCharacterList.DataSource = _charDB.Characters;
         }
         public void RemoveCharacter()
         {
@@ -72,48 +67,14 @@ namespace CharacterCreator.Winforms
 
             if (MessageBox.Show(this, $"Delete {character.CharacterName}?", "Delete?", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            int indexOfChar = -1;
-            for (int i = 0; i < this.currentNumberOfCharacters; i++)
-            {
-                if (this.characterList[i] == character)
-                {
-                    indexOfChar = i;
-                }
-            }
-
-            if (indexOfChar != -1)
-            {
-                for (int i = indexOfChar; i < this.currentNumberOfCharacters; i++)
-                {
-                    if (i < this.characterList.Length - 1)
-                    {
-                        this.characterList[i] = this.characterList[i + 1];
-                    }
-                    else
-                    {
-                        IncreaseArraySize();
-                    }
-
-                }
-            }
-            currentNumberOfCharacters--;
+            _charDB.Remove(character);
+            
             RefreshList();
         }
-
-        private void IncreaseArraySize()
-        {
-            Character[] newCharacterSizeList = new Character[this.characterList.Length * 2];
-            for (int i = 0; i < characterList.Length; i++)
-            {
-                newCharacterSizeList[i] = this.characterList[i];
-            }
-            this.characterList = newCharacterSizeList;
-            newCharacterSizeList = null;
-        }
-
+        
         private void LoadMainForm(object sender, EventArgs e)
         {
-
+            RefreshList();
         }
 
         public void EditCharacter()
