@@ -58,5 +58,17 @@ namespace CharacterCreator
             newCharacterSizeList = null;
         }
 
+        public static CharacterDatabase operator +(CharacterDatabase chdb, Character character )
+        {
+            chdb.Add(character);
+            return chdb;
+        }
+
+        public static CharacterDatabase operator -( CharacterDatabase chdb, Character character )
+        {
+            chdb.Remove(character);
+            return chdb;
+        }
+
     }
 }

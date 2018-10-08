@@ -49,7 +49,7 @@ namespace CharacterCreator.Winforms
             Character newCharacter = characterForm.ShowWindow(this);
             if(newCharacter != null)
             {
-                _charDB.Add(newCharacter);
+                _charDB += newCharacter;
                 RefreshList();
             }
         }
@@ -67,7 +67,7 @@ namespace CharacterCreator.Winforms
 
             if (MessageBox.Show(this, $"Delete {character.CharacterName}?", "Delete?", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            _charDB.Remove(character);
+            _charDB -= character;
             
             RefreshList();
         }
