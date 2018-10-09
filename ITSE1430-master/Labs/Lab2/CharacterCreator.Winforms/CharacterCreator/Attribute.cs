@@ -13,6 +13,7 @@ namespace CharacterCreator
 {
     public class Attribute
     {
+
         public const int MAX_VALUE = 100;
         public const int MIN_VALUE = 1;
         public const int TOTAL_ALLOCATED_POINTS_ALLOWED = 350;

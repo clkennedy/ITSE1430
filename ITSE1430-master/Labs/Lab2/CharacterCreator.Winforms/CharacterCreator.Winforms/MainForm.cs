@@ -40,20 +40,6 @@ namespace CharacterCreator.Winforms
             aboutForm.StartPosition = FormStartPosition.CenterParent;
             aboutForm.ShowDialog(this);
         }
-
-        private void NewCharacterOnClick(object sender, EventArgs e)
-        {
-            CharacterForm characterForm = new CharacterForm();
-            this.AddOwnedForm(characterForm);
-
-            Character newCharacter = characterForm.ShowWindow(this);
-            if(newCharacter != null)
-            {
-                _charDB += newCharacter;
-                RefreshList();
-            }
-        }
-
         public void RefreshList()
         {
             listBoxCharacterList.DataSource = null;
@@ -71,12 +57,6 @@ namespace CharacterCreator.Winforms
             
             RefreshList();
         }
-        
-        private void LoadMainForm(object sender, EventArgs e)
-        {
-            RefreshList();
-        }
-
         public void EditCharacter()
         {
             if (listBoxCharacterList.SelectedItem != null)
@@ -85,7 +65,29 @@ namespace CharacterCreator.Winforms
                 RefreshList();
             }
         }
+        public void NewCharacter()
+        {
+            CharacterForm characterForm = new CharacterForm();
+            this.AddOwnedForm(characterForm);
 
+            Character newCharacter = characterForm.ShowWindow(this);
+            if (newCharacter != null)
+            {
+                _charDB += newCharacter;
+                RefreshList();
+            }
+        }
+
+        private void LoadMainForm(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+
+
+        private void NewCharacterOnClick( object sender, EventArgs e )
+        {
+            NewCharacter();
+        }
         private void DoubleClickCharacterInListBox(object sender, EventArgs e)
         {
             EditCharacter();
