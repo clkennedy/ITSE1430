@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboBoxClassType = new System.Windows.Forms.ComboBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.comboBoxRace = new System.Windows.Forms.ComboBox();
@@ -39,29 +40,31 @@
             this.labelBio = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.labelStrength = new System.Windows.Forms.Label();
-            this.strScrollBar = new System.Windows.Forms.HScrollBar();
-            this.strScoreLabel = new System.Windows.Forms.Label();
-            this.intelScoreLabel = new System.Windows.Forms.Label();
-            this.intelScrollBar = new System.Windows.Forms.HScrollBar();
             this.intelLabel = new System.Windows.Forms.Label();
-            this.dexScoreLabel = new System.Windows.Forms.Label();
-            this.dexScrollBar = new System.Windows.Forms.HScrollBar();
             this.dexLabel = new System.Windows.Forms.Label();
-            this.conScoreLabel = new System.Windows.Forms.Label();
-            this.conScrollBar = new System.Windows.Forms.HScrollBar();
             this.conLabel = new System.Windows.Forms.Label();
-            this.wisScorLabel = new System.Windows.Forms.Label();
-            this.wisScrollBar = new System.Windows.Forms.HScrollBar();
             this.wisLabel = new System.Windows.Forms.Label();
-            this.charScoreLabel = new System.Windows.Forms.Label();
-            this.charScrollBar = new System.Windows.Forms.HScrollBar();
             this.charLabel = new System.Windows.Forms.Label();
-            this.luckScoreLabel = new System.Windows.Forms.Label();
             this.luckLabel = new System.Windows.Forms.Label();
-            this.luckScrollBar = new System.Windows.Forms.HScrollBar();
             this.errorLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labelPointsAvail = new System.Windows.Forms.Label();
+            this.nudStrength = new System.Windows.Forms.NumericUpDown();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.nudIntellegence = new System.Windows.Forms.NumericUpDown();
+            this.nudDexterity = new System.Windows.Forms.NumericUpDown();
+            this.nudConstitution = new System.Windows.Forms.NumericUpDown();
+            this.nudWisdom = new System.Windows.Forms.NumericUpDown();
+            this.nudCharisma = new System.Windows.Forms.NumericUpDown();
+            this.nudLuck = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStrength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIntellegence)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDexterity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudConstitution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWisdom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCharisma)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLuck)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxClassType
@@ -160,206 +163,65 @@
             // labelStrength
             // 
             this.labelStrength.AutoSize = true;
-            this.labelStrength.Location = new System.Drawing.Point(144, 23);
+            this.labelStrength.Location = new System.Drawing.Point(168, 26);
             this.labelStrength.Name = "labelStrength";
             this.labelStrength.Size = new System.Drawing.Size(47, 13);
             this.labelStrength.TabIndex = 11;
             this.labelStrength.Text = "Strength";
             // 
-            // strScrollBar
-            // 
-            this.strScrollBar.LargeChange = 1;
-            this.strScrollBar.Location = new System.Drawing.Point(147, 39);
-            this.strScrollBar.Name = "strScrollBar";
-            this.strScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.strScrollBar.TabIndex = 4;
-            this.strScrollBar.TabStop = true;
-            this.strScrollBar.Value = 50;
-            this.strScrollBar.ValueChanged += new System.EventHandler(this.StrengthScrollBarValueChanged);
-            // 
-            // strScoreLabel
-            // 
-            this.strScoreLabel.AutoSize = true;
-            this.strScoreLabel.Location = new System.Drawing.Point(236, 23);
-            this.strScoreLabel.Name = "strScoreLabel";
-            this.strScoreLabel.Size = new System.Drawing.Size(19, 13);
-            this.strScoreLabel.TabIndex = 13;
-            this.strScoreLabel.Text = "50";
-            // 
-            // intelScoreLabel
-            // 
-            this.intelScoreLabel.AutoSize = true;
-            this.intelScoreLabel.Location = new System.Drawing.Point(236, 55);
-            this.intelScoreLabel.Name = "intelScoreLabel";
-            this.intelScoreLabel.Size = new System.Drawing.Size(19, 13);
-            this.intelScoreLabel.TabIndex = 16;
-            this.intelScoreLabel.Text = "50";
-            // 
-            // intelScrollBar
-            // 
-            this.intelScrollBar.LargeChange = 1;
-            this.intelScrollBar.Location = new System.Drawing.Point(147, 72);
-            this.intelScrollBar.Name = "intelScrollBar";
-            this.intelScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.intelScrollBar.TabIndex = 5;
-            this.intelScrollBar.TabStop = true;
-            this.intelScrollBar.Value = 50;
-            this.intelScrollBar.ValueChanged += new System.EventHandler(this.IntellegenceScrollBarValueChanged);
-            // 
             // intelLabel
             // 
             this.intelLabel.AutoSize = true;
-            this.intelLabel.Location = new System.Drawing.Point(144, 55);
+            this.intelLabel.Location = new System.Drawing.Point(150, 53);
             this.intelLabel.Name = "intelLabel";
             this.intelLabel.Size = new System.Drawing.Size(65, 13);
             this.intelLabel.TabIndex = 14;
             this.intelLabel.Text = "Intellegence";
             // 
-            // dexScoreLabel
-            // 
-            this.dexScoreLabel.AutoSize = true;
-            this.dexScoreLabel.Location = new System.Drawing.Point(236, 83);
-            this.dexScoreLabel.Name = "dexScoreLabel";
-            this.dexScoreLabel.Size = new System.Drawing.Size(19, 13);
-            this.dexScoreLabel.TabIndex = 19;
-            this.dexScoreLabel.Text = "50";
-            // 
-            // dexScrollBar
-            // 
-            this.dexScrollBar.LargeChange = 1;
-            this.dexScrollBar.Location = new System.Drawing.Point(147, 100);
-            this.dexScrollBar.Name = "dexScrollBar";
-            this.dexScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.dexScrollBar.TabIndex = 6;
-            this.dexScrollBar.TabStop = true;
-            this.dexScrollBar.Value = 50;
-            this.dexScrollBar.ValueChanged += new System.EventHandler(this.DexterityScrollBarValueChanged);
-            // 
             // dexLabel
             // 
             this.dexLabel.AutoSize = true;
-            this.dexLabel.Location = new System.Drawing.Point(144, 83);
+            this.dexLabel.Location = new System.Drawing.Point(167, 83);
             this.dexLabel.Name = "dexLabel";
             this.dexLabel.Size = new System.Drawing.Size(48, 13);
             this.dexLabel.TabIndex = 17;
             this.dexLabel.Text = "Dexterity";
             // 
-            // conScoreLabel
-            // 
-            this.conScoreLabel.AutoSize = true;
-            this.conScoreLabel.Location = new System.Drawing.Point(236, 114);
-            this.conScoreLabel.Name = "conScoreLabel";
-            this.conScoreLabel.Size = new System.Drawing.Size(19, 13);
-            this.conScoreLabel.TabIndex = 22;
-            this.conScoreLabel.Text = "50";
-            // 
-            // conScrollBar
-            // 
-            this.conScrollBar.LargeChange = 1;
-            this.conScrollBar.Location = new System.Drawing.Point(147, 131);
-            this.conScrollBar.Name = "conScrollBar";
-            this.conScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.conScrollBar.TabIndex = 7;
-            this.conScrollBar.TabStop = true;
-            this.conScrollBar.Value = 50;
-            this.conScrollBar.ValueChanged += new System.EventHandler(this.ConstitutionScrollBarValueChanged);
-            // 
             // conLabel
             // 
             this.conLabel.AutoSize = true;
-            this.conLabel.Location = new System.Drawing.Point(144, 114);
+            this.conLabel.Location = new System.Drawing.Point(153, 109);
             this.conLabel.Name = "conLabel";
             this.conLabel.Size = new System.Drawing.Size(62, 13);
             this.conLabel.TabIndex = 20;
             this.conLabel.Text = "Constitution";
             // 
-            // wisScorLabel
-            // 
-            this.wisScorLabel.AutoSize = true;
-            this.wisScorLabel.Location = new System.Drawing.Point(236, 146);
-            this.wisScorLabel.Name = "wisScorLabel";
-            this.wisScorLabel.Size = new System.Drawing.Size(19, 13);
-            this.wisScorLabel.TabIndex = 25;
-            this.wisScorLabel.Text = "50";
-            // 
-            // wisScrollBar
-            // 
-            this.wisScrollBar.LargeChange = 1;
-            this.wisScrollBar.Location = new System.Drawing.Point(147, 163);
-            this.wisScrollBar.Name = "wisScrollBar";
-            this.wisScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.wisScrollBar.TabIndex = 8;
-            this.wisScrollBar.TabStop = true;
-            this.wisScrollBar.Value = 50;
-            this.wisScrollBar.ValueChanged += new System.EventHandler(this.WisdomScrollBarValueChanged);
-            // 
             // wisLabel
             // 
             this.wisLabel.AutoSize = true;
-            this.wisLabel.Location = new System.Drawing.Point(144, 146);
+            this.wisLabel.Location = new System.Drawing.Point(170, 138);
             this.wisLabel.Name = "wisLabel";
             this.wisLabel.Size = new System.Drawing.Size(45, 13);
             this.wisLabel.TabIndex = 23;
             this.wisLabel.Text = "Wisdom";
             // 
-            // charScoreLabel
-            // 
-            this.charScoreLabel.AutoSize = true;
-            this.charScoreLabel.Location = new System.Drawing.Point(236, 175);
-            this.charScoreLabel.Name = "charScoreLabel";
-            this.charScoreLabel.Size = new System.Drawing.Size(19, 13);
-            this.charScoreLabel.TabIndex = 28;
-            this.charScoreLabel.Text = "50";
-            // 
-            // charScrollBar
-            // 
-            this.charScrollBar.LargeChange = 1;
-            this.charScrollBar.Location = new System.Drawing.Point(147, 191);
-            this.charScrollBar.Name = "charScrollBar";
-            this.charScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.charScrollBar.TabIndex = 9;
-            this.charScrollBar.TabStop = true;
-            this.charScrollBar.Value = 50;
-            this.charScrollBar.ValueChanged += new System.EventHandler(this.CharismaScrollBarValueChanged);
-            // 
             // charLabel
             // 
             this.charLabel.AutoSize = true;
-            this.charLabel.Location = new System.Drawing.Point(144, 175);
+            this.charLabel.Location = new System.Drawing.Point(165, 167);
             this.charLabel.Name = "charLabel";
             this.charLabel.Size = new System.Drawing.Size(50, 13);
             this.charLabel.TabIndex = 26;
             this.charLabel.Text = "Charisma";
             // 
-            // luckScoreLabel
-            // 
-            this.luckScoreLabel.AutoSize = true;
-            this.luckScoreLabel.Location = new System.Drawing.Point(236, 207);
-            this.luckScoreLabel.Name = "luckScoreLabel";
-            this.luckScoreLabel.Size = new System.Drawing.Size(19, 13);
-            this.luckScoreLabel.TabIndex = 30;
-            this.luckScoreLabel.Text = "10";
-            // 
             // luckLabel
             // 
             this.luckLabel.AutoSize = true;
-            this.luckLabel.Location = new System.Drawing.Point(144, 207);
+            this.luckLabel.Location = new System.Drawing.Point(183, 196);
             this.luckLabel.Name = "luckLabel";
             this.luckLabel.Size = new System.Drawing.Size(31, 13);
             this.luckLabel.TabIndex = 29;
             this.luckLabel.Text = "Luck";
-            // 
-            // luckScrollBar
-            // 
-            this.luckScrollBar.Enabled = false;
-            this.luckScrollBar.LargeChange = 1;
-            this.luckScrollBar.Location = new System.Drawing.Point(148, 220);
-            this.luckScrollBar.Name = "luckScrollBar";
-            this.luckScrollBar.Size = new System.Drawing.Size(127, 10);
-            this.luckScrollBar.TabIndex = 10;
-            this.luckScrollBar.TabStop = true;
-            this.luckScrollBar.Value = 10;
-            this.luckScrollBar.ValueChanged += new System.EventHandler(this.LuckScrollBarValueChanged);
             // 
             // errorLabel
             // 
@@ -376,7 +238,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(145, 243);
+            this.label1.Location = new System.Drawing.Point(169, 227);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 13);
             this.label1.TabIndex = 33;
@@ -385,11 +247,108 @@
             // labelPointsAvail
             // 
             this.labelPointsAvail.AutoSize = true;
-            this.labelPointsAvail.Location = new System.Drawing.Point(230, 244);
+            this.labelPointsAvail.Location = new System.Drawing.Point(254, 228);
             this.labelPointsAvail.Name = "labelPointsAvail";
             this.labelPointsAvail.Size = new System.Drawing.Size(13, 13);
             this.labelPointsAvail.TabIndex = 34;
             this.labelPointsAvail.Text = "0";
+            // 
+            // nudStrength
+            // 
+            this.nudStrength.Location = new System.Drawing.Point(221, 21);
+            this.nudStrength.Name = "nudStrength";
+            this.nudStrength.Size = new System.Drawing.Size(51, 20);
+            this.nudStrength.TabIndex = 4;
+            this.nudStrength.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudStrength.ValueChanged += new System.EventHandler(this.AttributValueChanged);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            // 
+            // nudIntellegence
+            // 
+            this.nudIntellegence.Location = new System.Drawing.Point(221, 50);
+            this.nudIntellegence.Name = "nudIntellegence";
+            this.nudIntellegence.Size = new System.Drawing.Size(51, 20);
+            this.nudIntellegence.TabIndex = 5;
+            this.nudIntellegence.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudIntellegence.ValueChanged += new System.EventHandler(this.AttributValueChanged);
+            // 
+            // nudDexterity
+            // 
+            this.nudDexterity.Location = new System.Drawing.Point(221, 78);
+            this.nudDexterity.Name = "nudDexterity";
+            this.nudDexterity.Size = new System.Drawing.Size(51, 20);
+            this.nudDexterity.TabIndex = 6;
+            this.nudDexterity.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudDexterity.ValueChanged += new System.EventHandler(this.AttributValueChanged);
+            // 
+            // nudConstitution
+            // 
+            this.nudConstitution.Location = new System.Drawing.Point(221, 107);
+            this.nudConstitution.Name = "nudConstitution";
+            this.nudConstitution.Size = new System.Drawing.Size(51, 20);
+            this.nudConstitution.TabIndex = 7;
+            this.nudConstitution.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudConstitution.ValueChanged += new System.EventHandler(this.AttributValueChanged);
+            // 
+            // nudWisdom
+            // 
+            this.nudWisdom.Location = new System.Drawing.Point(221, 136);
+            this.nudWisdom.Name = "nudWisdom";
+            this.nudWisdom.Size = new System.Drawing.Size(51, 20);
+            this.nudWisdom.TabIndex = 8;
+            this.nudWisdom.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudWisdom.ValueChanged += new System.EventHandler(this.AttributValueChanged);
+            // 
+            // nudCharisma
+            // 
+            this.nudCharisma.Location = new System.Drawing.Point(221, 165);
+            this.nudCharisma.Name = "nudCharisma";
+            this.nudCharisma.Size = new System.Drawing.Size(51, 20);
+            this.nudCharisma.TabIndex = 9;
+            this.nudCharisma.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudCharisma.ValueChanged += new System.EventHandler(this.AttributValueChanged);
+            // 
+            // nudLuck
+            // 
+            this.nudLuck.Enabled = false;
+            this.nudLuck.Location = new System.Drawing.Point(221, 194);
+            this.nudLuck.Name = "nudLuck";
+            this.nudLuck.Size = new System.Drawing.Size(51, 20);
+            this.nudLuck.TabIndex = 10;
+            this.nudLuck.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudLuck.ValueChanged += new System.EventHandler(this.AttributValueChanged);
             // 
             // CharacterForm
             // 
@@ -397,29 +356,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 361);
             this.ControlBox = false;
+            this.Controls.Add(this.nudLuck);
+            this.Controls.Add(this.nudCharisma);
+            this.Controls.Add(this.nudWisdom);
+            this.Controls.Add(this.nudConstitution);
+            this.Controls.Add(this.nudDexterity);
+            this.Controls.Add(this.nudIntellegence);
+            this.Controls.Add(this.nudStrength);
             this.Controls.Add(this.labelPointsAvail);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.errorLabel);
-            this.Controls.Add(this.luckScrollBar);
-            this.Controls.Add(this.luckScoreLabel);
             this.Controls.Add(this.luckLabel);
-            this.Controls.Add(this.charScoreLabel);
-            this.Controls.Add(this.charScrollBar);
             this.Controls.Add(this.charLabel);
-            this.Controls.Add(this.wisScorLabel);
-            this.Controls.Add(this.wisScrollBar);
             this.Controls.Add(this.wisLabel);
-            this.Controls.Add(this.conScoreLabel);
-            this.Controls.Add(this.conScrollBar);
             this.Controls.Add(this.conLabel);
-            this.Controls.Add(this.dexScoreLabel);
-            this.Controls.Add(this.dexScrollBar);
             this.Controls.Add(this.dexLabel);
-            this.Controls.Add(this.intelScoreLabel);
-            this.Controls.Add(this.intelScrollBar);
             this.Controls.Add(this.intelLabel);
-            this.Controls.Add(this.strScoreLabel);
-            this.Controls.Add(this.strScrollBar);
             this.Controls.Add(this.labelStrength);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.labelBio);
@@ -438,6 +390,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Character";
             this.Load += new System.EventHandler(this.CharacterForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudStrength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIntellegence)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDexterity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudConstitution)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWisdom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCharisma)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLuck)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,28 +416,22 @@
         private System.Windows.Forms.Label labelBio;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label labelStrength;
-        private System.Windows.Forms.HScrollBar strScrollBar;
-        private System.Windows.Forms.Label strScoreLabel;
-        private System.Windows.Forms.Label intelScoreLabel;
-        private System.Windows.Forms.HScrollBar intelScrollBar;
         private System.Windows.Forms.Label intelLabel;
-        private System.Windows.Forms.Label dexScoreLabel;
-        private System.Windows.Forms.HScrollBar dexScrollBar;
         private System.Windows.Forms.Label dexLabel;
-        private System.Windows.Forms.Label conScoreLabel;
-        private System.Windows.Forms.HScrollBar conScrollBar;
         private System.Windows.Forms.Label conLabel;
-        private System.Windows.Forms.Label wisScorLabel;
-        private System.Windows.Forms.HScrollBar wisScrollBar;
         private System.Windows.Forms.Label wisLabel;
-        private System.Windows.Forms.Label charScoreLabel;
-        private System.Windows.Forms.HScrollBar charScrollBar;
         private System.Windows.Forms.Label charLabel;
-        private System.Windows.Forms.Label luckScoreLabel;
         private System.Windows.Forms.Label luckLabel;
-        private System.Windows.Forms.HScrollBar luckScrollBar;
         private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelPointsAvail;
+        private System.Windows.Forms.NumericUpDown nudStrength;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.NumericUpDown nudLuck;
+        private System.Windows.Forms.NumericUpDown nudCharisma;
+        private System.Windows.Forms.NumericUpDown nudWisdom;
+        private System.Windows.Forms.NumericUpDown nudConstitution;
+        private System.Windows.Forms.NumericUpDown nudDexterity;
+        private System.Windows.Forms.NumericUpDown nudIntellegence;
     }
 }

@@ -49,11 +49,11 @@ namespace CharacterCreator.Winforms
         {
             if (this.listBoxCharacterList.SelectedItem == null) return;
 
-            Character character = (Character)listBoxCharacterList.SelectedItem;
+            Character character = GetSelectedCharacter();
 
             if (MessageBox.Show(this, $"Delete {character.CharacterName}?", "Delete?", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            _charDB -= character;
+            _charDB.Remove(character);
             
             RefreshList();
         }
@@ -61,19 +61,29 @@ namespace CharacterCreator.Winforms
         {
             if (listBoxCharacterList.SelectedItem != null)
             {
-                new CharacterForm().ShowWindow(this, (Character)listBoxCharacterList.SelectedItem);
+                CharacterForm cf = new CharacterForm();
+                cf.Character = GetSelectedCharacter();
+                cf.ShowDialog();
                 RefreshList();
             }
+        }
+
+        private Character GetSelectedCharacter()
+        {
+            if (listBoxCharacterList.SelectedItem != null)
+            {
+                return listBoxCharacterList.SelectedItem as Character;
+            }
+            return null;
         }
         public void NewCharacter()
         {
             CharacterForm characterForm = new CharacterForm();
-            this.AddOwnedForm(characterForm);
-
-            Character newCharacter = characterForm.ShowWindow(this);
+            characterForm.ShowDialog(this);
+            Character newCharacter = characterForm.Character;
             if (newCharacter != null)
             {
-                _charDB += newCharacter;
+                _charDB.Add(newCharacter);
                 RefreshList();
             }
         }

@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Author : Cameron Kennedy
+ * ITSE 1430
+ * 9/20/2018 
+ */
+ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +16,18 @@ namespace CharacterCreator
         Character[] _characters = new Character[1];
         private int currentIndex = 0;
 
-        public Character[] Characters { get { return _characters; } }
+        public Character[] Characters {
+            get { return _characters; }
+        }
 
-        public void Add(Character character )
+        public void Add(Character character)
         {
-            _characters[currentIndex++] = character;
-            
             if (currentIndex == _characters.Length)
             {
                 IncreaseArraySize();
             }
+
+            _characters[currentIndex++] = character;
         }
 
         public void Remove(Character character )
@@ -36,7 +43,7 @@ namespace CharacterCreator
 
             if (indexOfChar != -1)
             {
-                for (int i = indexOfChar; i < this.currentIndex; i++)
+                for (int i = indexOfChar; i < currentIndex; i++)
                 {
                     if (i < _characters.Length - 1)
                     {
@@ -57,18 +64,5 @@ namespace CharacterCreator
             _characters = newCharacterSizeList;
             newCharacterSizeList = null;
         }
-
-        public static CharacterDatabase operator +(CharacterDatabase chdb, Character character )
-        {
-            chdb.Add(character);
-            return chdb;
-        }
-
-        public static CharacterDatabase operator -( CharacterDatabase chdb, Character character )
-        {
-            chdb.Remove(character);
-            return chdb;
-        }
-
     }
 }

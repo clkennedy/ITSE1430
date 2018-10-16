@@ -19,16 +19,20 @@ namespace CharacterCreator.Winforms
 {
     public partial class CharacterForm : Form
     {
+        public Character Character { get; set; } = null;
+        private bool loaded = false;
         public CharacterForm()
         {
             InitializeComponent();
             
-            comboBoxClassType.DataSource = Enum.GetValues(typeof(Character.ClassType));
-            comboBoxRace.DataSource = Enum.GetValues(typeof(Character.Race));
+            comboBoxClassType.DataSource = Enum.GetValues(typeof(ClassType));
+            comboBoxRace.DataSource = Enum.GetValues(typeof(Race));
 
+            //this is for being able to hit enter and validate from any control, i used this instead of the accppet button
+            //because i wante dthe user to be able to use enter in the bio text box
             for(int i = 0; i < this.Controls.Count; i ++)
             {
-                if (!this.Controls[i].Name.Equals("textBoxBio"))
+                if (this.Controls[i] != textBoxBio)
                 {
                     this.Controls[i].KeyPress += AnyKeyPressToCloseForm;
                 }
@@ -39,26 +43,20 @@ namespace CharacterCreator.Winforms
         {
             if(textBoxName.Text.Length < 3)
             {
-                errorLabel.Visible = true;
                 errorLabel.Text = "Name Too Short";
                 saveButton.Enabled = false;
-                return;
             }
-            if (textBoxName.Text.Any(ch => (!Char.IsLetter(ch) && !ch.Equals(' ')))){
-                errorLabel.Visible = true;
+            else if (textBoxName.Text.Any(ch => (!Char.IsDigit(ch) && !Char.IsLetter(ch) && !ch.Equals(' ')))){
                 errorLabel.Text = "No Special Chars";
                 saveButton.Enabled = false;
-                return;
             }
-            if(textBoxName.Text[0].Equals(' '))
-            {
-                errorLabel.Visible = true;
-                errorLabel.Text = "Can't Begin With Space";
-                saveButton.Enabled = false;
-                return;
+            else{
+                errorLabel.Text = "";
+                saveButton.Enabled = true;
             }
+            errorProvider.SetError(textBoxName, errorLabel.Text);
             errorLabel.Visible = false;
-            saveButton.Enabled = true;
+            
         }
 
         private void SaveButtonOnClick( object sender, EventArgs e )
@@ -74,111 +72,30 @@ namespace CharacterCreator.Winforms
         }
 
         #region Attributes
-        private void StrengthScrollBarValueChanged( object sender, EventArgs e )
+        private void AttributValueChanged( object sender, EventArgs e )
         {
-            if (HasAvailablePoints())
+            //luck is disabled because in most games you dont have control ove rthe luck attribute, but its typically displayed for information purposes
+            //thats thr oute i chose to go, plus if this were an actually game there might be a feat that will let you change luck
+            if (!HasAvailablePoints() && sender is NumericUpDown nud)
             {
-                strScoreLabel.Text = strScrollBar.Value.ToString();
-            } else
-            {
-                strScrollBar.Value--;
-            }
-            
-        }
-
-        private void IntellegenceScrollBarValueChanged( object sender, EventArgs e )
-        {
-            if (HasAvailablePoints())
-            {
-                intelScoreLabel.Text = intelScrollBar.Value.ToString();
-            } else
-            {
-                intelScrollBar.Value--;
-            }
-        }
-        
-        private void DexterityScrollBarValueChanged(object sender, EventArgs e)
-        {
-            if (HasAvailablePoints())
-            {
-                dexScoreLabel.Text = dexScrollBar.Value.ToString();
-            } else
-            {
-                dexScrollBar.Value--;
-            }
-        }
-
-        private void ConstitutionScrollBarValueChanged(object sender, EventArgs e)
-        {
-            if (HasAvailablePoints())
-            {
-                conScoreLabel.Text = conScrollBar.Value.ToString();
-            } else
-            {
-                conScrollBar.Value--;
-            }
-        }
-        private void WisdomScrollBarValueChanged(object sender, EventArgs e)
-        {
-            if (HasAvailablePoints())
-            {
-                wisScorLabel.Text = wisScrollBar.Value.ToString();
-            } else
-            {
-                wisScrollBar.Value--;
-            }
-        }
-        
-        private void CharismaScrollBarValueChanged(object sender, EventArgs e)
-        {
-            if (HasAvailablePoints())
-            {
-                charScoreLabel.Text = charScrollBar.Value.ToString();
-            } else
-            {
-                charScrollBar.Value--;
-            }
-        }
-
-        private void LuckScrollBarValueChanged(object sender, EventArgs e)
-        {
-            if (HasAvailablePoints())
-            {
-                luckScoreLabel.Text = luckScrollBar.Value.ToString();
-            } else
-            {
-                luckScrollBar.Value--;
-            }
-        }
-        #endregion
-
-        #region CustomShowWindows
-        public Character ShowWindow(IWin32Window owner)
-        {
-            base.ShowDialog(owner);
-            return SaveCharacter(null);
-        }
-        public Character ShowWindow(IWin32Window owner, Character character)
-        {
-            this.Text = $"Edit Character: {character.CharacterName}";
-            SetCharacterValues(character);
-            
-            base.ShowDialog(owner);
-
-            return SaveCharacter(character);
+                nud.Value--;
+            } 
         }
         #endregion
 
         private bool HasAvailablePoints()
         {
-            int pointsAvail = Attribute.TOTAL_ALLOCATED_POINTS_ALLOWED -
-                (luckScrollBar.Value +
-                strScrollBar.Value +
-                intelScrollBar.Value +
-                dexScrollBar.Value +
-                conScrollBar.Value +
-                charScrollBar.Value +
-                wisScrollBar.Value);
+            if (!loaded)
+                return true;
+
+            int pointsAvail = CharacterAttribute.TotalAllocatedPointsAllowed -
+                (int)(nudLuck.Value +
+                nudCharisma.Value +
+                nudIntellegence.Value +
+                nudDexterity.Value +
+                nudStrength.Value +
+                nudWisdom.Value +
+                nudConstitution.Value);
 
             labelPointsAvail.Text = pointsAvail.ToString();
 
@@ -191,39 +108,38 @@ namespace CharacterCreator.Winforms
         {
             textBoxName.Text = character.CharacterName;
             textBoxBio.Text = character.CharacterDescription;
-            comboBoxClassType.SelectedItem = (object)character.CharacterClassType;
-            comboBoxRace.SelectedItem = (object)character.CharacterRace;
+            comboBoxClassType.SelectedItem = character.CharacterClassType;
+            comboBoxRace.SelectedItem = character.CharacterRace;
 
-            strScrollBar.Value = character.GetAttribute(Attribute.STRENGTH);
-            dexScrollBar.Value = character.GetAttribute(Attribute.DEXERITY);
-            conScrollBar.Value = character.GetAttribute(Attribute.CONSTITUTION);
-            charScrollBar.Value = character.GetAttribute(Attribute.CHARISMA);
-            intelScrollBar.Value = character.GetAttribute(Attribute.INTELLEGENCE);
-            wisScrollBar.Value = character.GetAttribute(Attribute.WISDOM);
-            luckScrollBar.Value = character.GetAttribute(Attribute.LUCK);
+            nudStrength.Value = (decimal)character.GetAttribute(CharacterAttribute.Strength);
+            nudDexterity.Value = character.GetAttribute(CharacterAttribute.Dexterity);
+            nudConstitution.Value = character.GetAttribute(CharacterAttribute.Constitution);
+            nudCharisma.Value = character.GetAttribute(CharacterAttribute.Charisma);
+            nudIntellegence.Value = character.GetAttribute(CharacterAttribute.Intellegence);
+            nudWisdom.Value = character.GetAttribute(CharacterAttribute.Wisdom);
+            nudLuck.Value = character.GetAttribute(CharacterAttribute.Luck);
         }
-        private Character SaveCharacter(Character character)
+        private void SaveCharacter()
         {
             if (this.DialogResult == DialogResult.OK)
             {
-                if(character == null)
+                if(Character == null)
                 {
-                    character = new Character();
+                    Character = new Character();
                 }
 
-                character.CharacterName = textBoxName.Text;
-                character.CharacterDescription = textBoxBio.Text;
-                character.CharacterClassType = (Character.ClassType)comboBoxClassType.SelectedItem;
-                character.CharacterRace = (Character.Race)comboBoxRace.SelectedItem;
-                character.SetAttribute(Attribute.STRENGTH, strScrollBar.Value);
-                character.SetAttribute(Attribute.DEXERITY, dexScrollBar.Value);
-                character.SetAttribute(Attribute.CONSTITUTION, conScrollBar.Value);
-                character.SetAttribute(Attribute.CHARISMA, charScrollBar.Value);
-                character.SetAttribute(Attribute.INTELLEGENCE, intelScrollBar.Value);
-                character.SetAttribute(Attribute.WISDOM, wisScrollBar.Value);
-                character.SetAttribute(Attribute.LUCK, luckScrollBar.Value);
+                Character.CharacterName = textBoxName.Text.Trim();
+                Character.CharacterDescription = textBoxBio.Text;
+                Character.CharacterClassType = (ClassType)comboBoxClassType.SelectedItem;
+                Character.CharacterRace = (Race)comboBoxRace.SelectedItem;
+                Character.SetAttribute(CharacterAttribute.Strength, (int)nudStrength.Value);
+                Character.SetAttribute(CharacterAttribute.Dexterity, (int)nudDexterity.Value);
+                Character.SetAttribute(CharacterAttribute.Constitution, (int)nudConstitution.Value);
+                Character.SetAttribute(CharacterAttribute.Charisma, (int)nudCharisma.Value);
+                Character.SetAttribute(CharacterAttribute.Intellegence, (int)nudIntellegence.Value);
+                Character.SetAttribute(CharacterAttribute.Wisdom, (int)nudWisdom.Value);
+                Character.SetAttribute(CharacterAttribute.Luck, (int)nudLuck.Value);
             }
-            return character;
         }
 
         private void AnyKeyPressToCloseForm(object sender, KeyPressEventArgs e)
@@ -238,9 +154,27 @@ namespace CharacterCreator.Winforms
             }
         }
 
+        protected override void OnFormClosing( FormClosingEventArgs e )
+        {
+            //you can save the character without using all the points as the player may want to allocate the points at a later date
+            //plus you can edit the character, remove and add points so forcing the user to allocate all the points doesnt seem correct to me.
+            base.OnFormClosing(e);
+            if(DialogResult == DialogResult.OK)
+            {
+                SaveCharacter();
+            }
+        }
+
         private void CharacterForm_Load( object sender, EventArgs e )
         {
+            if(Character != null)
+            {
+                this.Text = $"Edit Character: {Character.CharacterName}";
+                SetCharacterValues(Character);
+            }
+            loaded = true;
             HasAvailablePoints();
+
         }
     }
 }
