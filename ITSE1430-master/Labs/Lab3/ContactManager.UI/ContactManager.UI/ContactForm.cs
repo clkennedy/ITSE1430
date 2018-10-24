@@ -39,7 +39,7 @@ namespace ContactManager.UI
                 Contact = new ContactItem();
 
             Contact.ContactName = tbName.Text;
-            Contact.ContactEmail = tbEmail.Name;
+            Contact.ContactEmail = tbEmail.Text;
         }
         bool IsValidEmail( string source )
         {

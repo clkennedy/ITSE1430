@@ -13,6 +13,7 @@ namespace ContactManager.UI
     public partial class MessageForm : Form
     {
         public ContactItem Contact { get; set; } = null;
+        public MessageItem Message { get; set; } = null;
         public MessageForm()
         {
             InitializeComponent();
@@ -24,10 +25,10 @@ namespace ContactManager.UI
         {
             bool isValid = true;
 
-            if (!IsValidEmail(tbMessage.Text))
+            if (tbSubject.Text == "")
             {
                 isValid = false;
-                errorProvider.SetError(tbMessage, "Email is not valid");
+                errorProvider.SetError(tbSubject, "Subject can't be Empty");
             }
             
                 
@@ -35,44 +36,33 @@ namespace ContactManager.UI
         }
         private void SaveData()
         {
-            if (Contact == null)
-                Contact = new ContactItem();
+            if (Message == null)
+                Message = new MessageItem();
 
-            Contact.ContactName = tbSubject.Text;
-            Contact.ContactEmail = tbMessage.Name;
+            Message.MessageEmail = Contact.ContactEmail;
+            Message.MessageSubject = tbSubject.Text;
+            Message.MessageBody = tbMessage.Text;
         }
-        bool IsValidEmail( string source )
-        {
-            try
-            {
-                new System.Net.Mail.MailAddress(source);
-                return true;
-            } catch
-            { };
-
-            return false;
-        }
+        
 
         private void ContactForm_Load( object sender, EventArgs e )
         {
             if(Contact != null)
             {
-                Name = "Editing " + Contact.ContactName;
-                tbSubject.Text = Contact.ContactName;
-                tbMessage.Text = Contact.ContactEmail;
+                Name = "Send Message to " + Contact.ContactName;
                 ValidateFields();
             } else
             {
-                Name = "New Contact";
+                Name = "Send Message";
             }
         }
 
         private void OnTextBoxChange( object sender, EventArgs e )
         {
-            bSend.Enabled = (tbSubject.Text != "" && tbMessage.Text != "");
+            bSend.Enabled = (tbSubject.Text != "");
         }
 
-        private void OnSave( object sender, EventArgs e )
+        private void OnSend( object sender, EventArgs e )
         {
             if (ValidateFields())
             {

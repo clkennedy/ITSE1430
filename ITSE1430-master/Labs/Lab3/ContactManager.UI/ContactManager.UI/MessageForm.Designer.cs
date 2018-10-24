@@ -83,7 +83,7 @@
             this.bSend.TabIndex = 4;
             this.bSend.Text = "Send";
             this.bSend.UseVisualStyleBackColor = true;
-            this.bSend.Click += new System.EventHandler(this.OnSave);
+            this.bSend.Click += new System.EventHandler(this.OnSend);
             // 
             // bCancel
             // 

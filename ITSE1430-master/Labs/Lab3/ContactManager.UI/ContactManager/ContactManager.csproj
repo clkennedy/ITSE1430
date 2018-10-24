@@ -44,8 +44,8 @@
     <Compile Include="ContactDatabase.cs" />
     <Compile Include="ContactItem.cs" />
     <Compile Include="IContactItem.cs" />
+    <Compile Include="IMessageService.cs" />
     <Compile Include="MessageItem.cs" />
-    <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

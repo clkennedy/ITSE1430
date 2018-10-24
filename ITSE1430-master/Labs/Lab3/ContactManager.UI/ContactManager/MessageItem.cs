@@ -8,5 +8,11 @@ namespace ContactManager
 {
     public class MessageItem
     {
+
+        public string MessageEmail { get; set; }
+        public string MessageSubject { get; set; }
+        public string MessageBody { get; set; }
+
+
     }
 }
