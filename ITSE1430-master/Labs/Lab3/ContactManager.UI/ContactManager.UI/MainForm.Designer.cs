@@ -33,12 +33,15 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lbContacts = new System.Windows.Forms.ListBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tbMessages = new System.Windows.Forms.TextBox();
+            this.tbMessages = new System.Windows.Forms.RichTextBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -78,6 +81,9 @@
             // 
             this.contactsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.toolStripSeparator1,
             this.sendMessageToolStripMenuItem});
             this.contactsToolStripMenuItem.Name = "contactsToolStripMenuItem";
             this.contactsToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
@@ -90,6 +96,22 @@
             this.newToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.OnNewContact);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnContactDelete);
             // 
             // sendMessageToolStripMenuItem
             // 
@@ -123,6 +145,7 @@
             this.lbContacts.Name = "lbContacts";
             this.lbContacts.Size = new System.Drawing.Size(151, 400);
             this.lbContacts.TabIndex = 1;
+            this.lbContacts.DoubleClick += new System.EventHandler(this.OnContactDoubleClicked);
             // 
             // splitContainer1
             // 
@@ -145,12 +168,17 @@
             // 
             this.tbMessages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbMessages.Location = new System.Drawing.Point(0, 0);
-            this.tbMessages.Multiline = true;
             this.tbMessages.Name = "tbMessages";
             this.tbMessages.ReadOnly = true;
-            this.tbMessages.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbMessages.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.tbMessages.Size = new System.Drawing.Size(375, 400);
             this.tbMessages.TabIndex = 0;
+            this.tbMessages.Text = "";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // MainForm
             // 
@@ -161,12 +189,12 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Contact Manager";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -186,7 +214,10 @@
         private System.Windows.Forms.ListBox lbContacts;
         private System.Windows.Forms.ToolStripMenuItem sendMessageToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TextBox tbMessages;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox tbMessages;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

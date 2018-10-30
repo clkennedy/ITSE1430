@@ -113,6 +113,7 @@
             this.MaximumSize = new System.Drawing.Size(250, 200);
             this.MinimumSize = new System.Drawing.Size(250, 200);
             this.Name = "ContactForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Contact";
             this.Load += new System.EventHandler(this.ContactForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

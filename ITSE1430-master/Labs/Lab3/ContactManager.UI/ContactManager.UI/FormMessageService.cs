@@ -20,15 +20,29 @@ namespace ContactManager.UI
             {
                 return;
             }
-            string messages = MainForm.MessageBox;
+            string messages = MainForm.MessageText.Text;
 
             if (messages != "")
-                messages += "\r\n--------------\r\n";
-            messages += $"Email: \r\n{message.MessageEmail}\r\n" +
-                $"Subject:\r\n{message.MessageSubject}\r\n" +
-                $"Body:\r\n{message.MessageBody}";
+            {
+                MainForm.MessageText.SelectionFont = new System.Drawing.Font(MainForm.MessageText.Font, System.Drawing.FontStyle.Bold);
+                MainForm.MessageText.AppendText("--------------------------------------------------------\r\n");
+            }
 
-            MainForm.MessageBox = messages;
+            MainForm.MessageText.SelectionFont = new System.Drawing.Font(MainForm.MessageText.Font, System.Drawing.FontStyle.Bold);
+            MainForm.MessageText.AppendText("Email: ");
+            MainForm.MessageText.SelectionFont = new System.Drawing.Font(MainForm.MessageText.Font, System.Drawing.FontStyle.Regular);
+            MainForm.MessageText.AppendText($"{message.MessageEmail}\r\n");
+
+            MainForm.MessageText.SelectionFont = new System.Drawing.Font(MainForm.MessageText.Font, System.Drawing.FontStyle.Bold);
+            MainForm.MessageText.AppendText("Subject: ");
+            MainForm.MessageText.SelectionFont = new System.Drawing.Font(MainForm.MessageText.Font, System.Drawing.FontStyle.Regular);
+            MainForm.MessageText.AppendText($"{message.MessageSubject}\r\n");
+
+            MainForm.MessageText.SelectionFont = new System.Drawing.Font(MainForm.MessageText.Font, System.Drawing.FontStyle.Bold);
+            MainForm.MessageText.AppendText("Body:\r\n");
+            MainForm.MessageText.SelectionFont = new System.Drawing.Font(MainForm.MessageText.Font, System.Drawing.FontStyle.Regular);
+            MainForm.MessageText.AppendText($"{message.MessageBody}\r\n");
         }
+
     }
 }

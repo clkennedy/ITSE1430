@@ -13,9 +13,9 @@ namespace ContactManager.UI
     public partial class MainForm : Form
     {
         private ContactDatabase _contactDB = new ContactDatabase();
-        public string MessageBox {
-            get { return tbMessages.Text; }
-            set { tbMessages.Text = value; } }
+        public RichTextBox MessageText {
+            get { return tbMessages; }
+            set { tbMessages = value; } }
 
         public FormMessageService MessageService { get; set; }
         public MainForm()
@@ -29,7 +29,35 @@ namespace ContactManager.UI
             lbContacts.DataSource = null;
             lbContacts.DataSource = _contactDB.Contacts;
         }
-        
+
+        private void EditContact()
+        {
+            ContactItem contactItem = GetSelectedContact();
+            if (contactItem == null)
+                return;
+            ContactForm cf = new ContactForm();
+            cf.Contact = contactItem;
+
+            cf.ShowDialog(this);
+
+            RefreshList();
+        }
+
+        private void DeleteContact()
+        {
+            ContactItem contactItem = GetSelectedContact();
+            if (contactItem == null)
+                return;
+
+            if (MessageBox.Show(this, $"Delete {contactItem.ContactName}", $"Are you sure you want to Delete {contactItem.ContactName} from your Contacts",
+                MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            _contactDB.Remove(contactItem);
+
+            RefreshList();
+        }
+
         private void OnAboutClicked( object sender, EventArgs e )
         {
             new AboutForm().ShowDialog(this);
@@ -70,6 +98,26 @@ namespace ContactManager.UI
                 return lbContacts.SelectedItem as ContactItem;
 
             return null;
+        }
+
+        private void editToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            EditContact();
+        }
+
+        private void OnContactDoubleClicked( object sender, EventArgs e )
+        {
+            EditContact();
+        }
+
+        private void OnContactDelete( object sender, EventArgs e )
+        {
+            DeleteContact();
+        }
+
+        private void tbMessages_TextChanged( object sender, EventArgs e )
+        {
+
         }
     }
 }
