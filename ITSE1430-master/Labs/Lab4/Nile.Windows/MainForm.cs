@@ -3,6 +3,7 @@
  */
 using System;
 using System.Windows.Forms;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nile.Windows
 {
@@ -38,10 +39,16 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
+            try
+            {
+
             //Save product
             _database.Add(child.Product);
             UpdateList();
+            }catch(ValidationException ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void OnProductEdit( object sender, EventArgs e )
@@ -92,7 +99,10 @@ namespace Nile.Windows
 			//Don't continue with key
             e.SuppressKeyPress = true;
         }
-
+        private void OnAboutMenuClick(object sender, EventArgs e)
+        {
+            new AboutForm().ShowDialog(this);
+        }
         #endregion
 
         #region Private Members
@@ -104,10 +114,16 @@ namespace Nile.Windows
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            //TODO: Handle errors
+            try
+            {
+
             //Delete product
             _database.Remove(product.Id);
             UpdateList();
+            }catch(ArgumentException ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error");
+            }
         }
 
         private void EditProduct ( Product product )
@@ -117,10 +133,16 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
+            try
+            {
+
             //Save product
             _database.Update(child.Product);
             UpdateList();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
+            }
         }
 
         private Product GetSelectedProduct ()
@@ -133,12 +155,17 @@ namespace Nile.Windows
 
         private void UpdateList ()
         {
-            //TODO: Handle errors
-
+            try {
             _bsProducts.DataSource = _database.GetAll();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
+            }
         }
 
         private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
         #endregion
+
+        
     }
 }
