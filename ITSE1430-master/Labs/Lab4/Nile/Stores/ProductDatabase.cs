@@ -21,6 +21,9 @@ namespace Nile.Stores
 
             ValidateProduct(product);
 
+            if (GetAll().Where(p => p.Name == product.Name && p.Id != product.Id).Count() > 0)
+                throw new DuplicateProductException(product.Name);
+
             //Emulate database by storing copy
             return AddCore(product);
         }
@@ -71,8 +74,11 @@ namespace Nile.Stores
             if (product == null)
                 throw new ArgumentNullException("product");
 
-            if (GetAllCore().Where(p=> p == product).FirstOrDefault() == null)
+            if (GetAll().Where(p=> p == product).FirstOrDefault() == null)
                 throw new ProductDoesNotExistException();
+
+            if (GetAll().Where(p => p.Name == product.Name && p.Id != product.Id).Count() > 0)
+                throw new DuplicateProductException(product.Name);
 
             ValidateProduct(product);
 
@@ -101,7 +107,17 @@ namespace Nile.Stores
             {
 
             }
-            
+        }
+        public class DuplicateProductException : ArgumentException
+        {
+            public DuplicateProductException() : base("Product Already Exist is DataBase")
+            {
+
+            }
+            public DuplicateProductException(string param) : base("Product Already Exist is DataBase: ",param)
+            {
+
+            }
         }
     }
 }
