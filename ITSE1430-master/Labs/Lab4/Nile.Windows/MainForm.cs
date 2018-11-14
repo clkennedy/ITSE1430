@@ -1,9 +1,14 @@
 /*
+ * Cameron Kennedy
  * ITSE 1430
+ * Lab 4
+ * 11/13/2018 
  */
 using System;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Linq;
 
 namespace Nile.Windows
 {
@@ -22,7 +27,7 @@ namespace Nile.Windows
             base.OnLoad(e);
 
             _gridProducts.AutoGenerateColumns = false;
-
+            
             UpdateList();
         }
 
@@ -45,7 +50,7 @@ namespace Nile.Windows
             //Save product
             _database.Add(child.Product);
             UpdateList();
-            }catch(ValidationException ex)
+            }catch(Exception ex)
             {
                 MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
             }
@@ -156,14 +161,16 @@ namespace Nile.Windows
         private void UpdateList ()
         {
             try {
-            _bsProducts.DataSource = _database.GetAll();
+            _bsProducts.DataSource = _database.GetAll().OrderBy(p => p.Name);
             }catch(Exception ex)
             {
                 MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
             }
         }
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private readonly IProductDatabase _database = new Nile.Stores.Sql.SqlProductDatabase(
+                                                                ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString
+                                                                );
         #endregion
 
         

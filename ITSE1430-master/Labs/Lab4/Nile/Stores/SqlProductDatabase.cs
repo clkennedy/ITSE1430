@@ -1,5 +1,8 @@
 /*
+ * Cameron Kennedy
  * ITSE 1430
+ * Lab 4
+ * 11/13/2018 
  */
 using System;
 using System.Collections.Generic;
@@ -110,16 +113,29 @@ namespace Nile.Stores.Sql
         /// <summary>Updates a product.</summary>
         /// <param name="product">The product to update.</param>
         /// <returns>The updated product.</returns>
-        protected override Product UpdateCore ( Product existing, Product product )
+        protected override Product UpdateCore(Product existing, Product product)
         {
-            //Replace 
-            existing = FindProduct(product.Id);
-            _products.Remove(existing);
-            
+            //Replace
             var newProduct = CopyProduct(product);
-            _products.Add(newProduct);
 
-            return CopyProduct(newProduct);
+            int prodId;
+
+            using (SqlConnection conn = CreateConnection())
+            {
+                SqlCommand cmd = new SqlCommand("UpdateProduct", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddRange(new SqlParameter[] { new SqlParameter("@id", newProduct.Id),
+                                                             new SqlParameter("@name", newProduct.Name),
+                                                             new SqlParameter("@price", newProduct.Price),
+                                                             new SqlParameter("@description", newProduct.Description),
+                                                             new SqlParameter("@isDiscontinued", newProduct.IsDiscontinued)});
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                return CopyProduct(newProduct);
+            }
         }
         
         private Product CopyProduct ( Product product )

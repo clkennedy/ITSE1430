@@ -1,5 +1,8 @@
 /*
+ * Cameron Kennedy
  * ITSE 1430
+ * Lab 4
+ * 11/13/2018 
  */
 using System;
 using System.Collections.Generic;
@@ -74,7 +77,7 @@ namespace Nile.Stores
             if (product == null)
                 throw new ArgumentNullException("product");
 
-            if (GetAll().Where(p=> p == product).FirstOrDefault() == null)
+            if (GetAll().Where(p=> p.Id == product.Id).FirstOrDefault() == null)
                 throw new ProductDoesNotExistException();
 
             if (GetAll().Where(p => p.Name == product.Name && p.Id != product.Id).Count() > 0)

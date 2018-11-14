@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Cameron Kennedy
+ * ITSE 1430
+ * Lab 4
+ * 11/13/2018 
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
