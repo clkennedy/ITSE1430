@@ -8,8 +8,18 @@ using System.ComponentModel.DataAnnotations;
 namespace EventPlanner
 {
     /// <summary>Represents a scheduled event.</summary>
-    public class ScheduledEventodel
+    public class ScheduledEventModel
     {
+        public ScheduledEventModel( ScheduledEvent item)
+        {
+            Id = item.Id;
+            Name = item.Name;
+            Description = item.Description;
+            StartDate = item.StartDate;
+            EndDate = item.EndDate;
+            IsPublic = item.IsPublic;
+        }
+
         /// <summary>Gets or sets the unique ID.</summary>
         [Range(0, Int32.MaxValue)]
         public int Id { get; set; }
@@ -27,7 +37,7 @@ namespace EventPlanner
         /// <summary>Gets or sets the end date.</summary>
         
         public DateTime EndDate {
-            get { return EndDate; }
+            get ;
             set {
                 if (EndDate < StartDate)
                     throw new Exception("End date must be greater than or equal to start date.");
