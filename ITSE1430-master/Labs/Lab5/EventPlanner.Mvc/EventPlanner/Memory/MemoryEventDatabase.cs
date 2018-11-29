@@ -10,6 +10,7 @@ namespace EventPlanner.Memory
     /// <summary>Provides an implementation of <see cref="IEventDatabase"/> backed by memory.</summary>
     public class MemoryEventDatabase : IEventDatabase
     {
+        
         public ScheduledEvent Add ( ScheduledEvent evt )
         {
             Verify.ArgumentIsValidAndNotNull(nameof(evt), evt);
