@@ -23,10 +23,17 @@ namespace EventPlanner.Mvc.App_Start
                     IsPublic = true},
                 new ScheduledEvent(){
                     Description = "Day Born",
-                    Id = 1,
+                    Id = 2,
                     Name = "Birthday",
                     StartDate = new DateTime(1991, 6, 20),
                     EndDate = new DateTime(1991, 6, 20),
+                    IsPublic = false},
+                new ScheduledEvent(){
+                    Description = "Upcoming B-Day",
+                    Id = 3,
+                    Name = "30th Birthday",
+                    StartDate = new DateTime(2019, 6, 20),
+                    EndDate = new DateTime(2019, 6, 20),
                     IsPublic = false},
         });
 

@@ -194,7 +194,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Event\Delete.cshtml" />
     <Content Include="Views\Event\My.cshtml" />
+    <Content Include="Views\Event\All.cshtml" />
+    <Content Include="Views\Event\Details.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

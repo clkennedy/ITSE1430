@@ -10,6 +10,7 @@ namespace EventPlanner
     /// <summary>Represents a scheduled event.</summary>
     public class ScheduledEvent : IValidatableObject
     {
+        public ScheduledEvent() { }
         /// <summary>Gets or sets the unique ID.</summary>
         [Range(0, Int32.MaxValue)]
         public int Id { get; set; }

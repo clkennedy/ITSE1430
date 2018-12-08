@@ -8,8 +8,9 @@ using System.ComponentModel.DataAnnotations;
 namespace EventPlanner
 {
     /// <summary>Represents a scheduled event.</summary>
-    public class ScheduledEventModel
+    public class ScheduledEventModel : IValidatableObject
     {
+        public ScheduledEventModel() { }
         public ScheduledEventModel( ScheduledEvent item)
         {
             Id = item.Id;
@@ -18,6 +19,19 @@ namespace EventPlanner
             StartDate = item.StartDate;
             EndDate = item.EndDate;
             IsPublic = item.IsPublic;
+        }
+
+        public ScheduledEvent ToDomain()
+        {
+            return new ScheduledEvent()
+            {
+                Description = this.Description,
+                EndDate = this.EndDate,
+                Id = this.Id,
+                IsPublic = this.IsPublic,
+                Name = this.Name,
+                StartDate = this.StartDate
+            };
         }
 
         /// <summary>Gets or sets the unique ID.</summary>
@@ -35,19 +49,14 @@ namespace EventPlanner
         public DateTime StartDate { get; set; }
 
         /// <summary>Gets or sets the end date.</summary>
-        
-        public DateTime EndDate {
-            get ;
-            set {
-                if (EndDate < StartDate)
-                    throw new Exception("End date must be greater than or equal to start date.");
-                else
-                    EndDate = value;
-
-            } }
+        public DateTime EndDate{get; set;}
 
         /// <summary>Determines if this is private or public event.</summary>
         public bool IsPublic { get; set; }
-        
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (EndDate < StartDate)
+                yield return new ValidationResult("End date must be greater than or equal to start date.", new[] { nameof(EndDate) });
+        }
     }
 }
